@@ -1,0 +1,167 @@
+[17-Jul-2024 07:59:03 UTC] PHP Notice:  Undefined index: code in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php on line 36
+[17-Jul-2024 07:59:03 UTC] PHP Notice:  Undefined index: message in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php on line 37
+[17-Jul-2024 07:59:07 UTC] PHP Notice:  Undefined index: code in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php on line 36
+[17-Jul-2024 07:59:07 UTC] PHP Notice:  Undefined index: message in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php on line 37
+[17-Jul-2024 08:17:57 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:17:57 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:17:57 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:17:57 UTC] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 17
+[17-Jul-2024 08:17:57 UTC] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 28
+[17-Jul-2024 08:17:57 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:17:57 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:17:57 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 11:47:57 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 11:47:57 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 11:47:57 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 11:47:57 asia/tehran] PHP Notice:  Undefined variable: text_message in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 68
+[17-Jul-2024 11:47:57 asia/tehran] PHP Notice:  Undefined variable: callback_data in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 214
+[17-Jul-2024 11:47:58 asia/tehran] PHP Notice:  Undefined index: code in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php on line 48
+[17-Jul-2024 11:47:58 asia/tehran] PHP Notice:  Undefined index: message in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php on line 49
+[17-Jul-2024 08:30:32 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:30:32 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:30:32 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:30:32 UTC] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 17
+[17-Jul-2024 08:30:32 UTC] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 28
+[17-Jul-2024 08:30:32 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:30:32 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:30:32 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:00:32 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:00:32 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:00:32 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:00:32 asia/tehran] PHP Notice:  Undefined variable: text_message in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 68
+[17-Jul-2024 12:00:32 asia/tehran] PHP Notice:  Undefined variable: callback_data in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 214
+[17-Jul-2024 12:00:33 asia/tehran] PHP Notice:  Undefined index: code in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php on line 48
+[17-Jul-2024 12:00:33 asia/tehran] PHP Notice:  Undefined index: message in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php on line 49
+[17-Jul-2024 08:31:32 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:31:32 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:31:32 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:31:32 UTC] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 17
+[17-Jul-2024 08:31:32 UTC] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 28
+[17-Jul-2024 08:31:32 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:31:32 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:31:32 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:01:32 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:01:32 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:01:32 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:01:32 asia/tehran] PHP Notice:  Undefined variable: text_message in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 68
+[17-Jul-2024 12:01:32 asia/tehran] PHP Notice:  Undefined variable: callback_data in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 214
+[17-Jul-2024 12:01:33 asia/tehran] PHP Notice:  Undefined index: code in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php on line 48
+[17-Jul-2024 12:01:33 asia/tehran] PHP Notice:  Undefined index: message in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php on line 49
+[17-Jul-2024 08:35:18 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:35:18 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:35:18 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:35:18 UTC] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 17
+[17-Jul-2024 08:35:18 UTC] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 28
+[17-Jul-2024 08:35:18 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:35:18 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:35:18 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:05:18 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:05:18 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:05:18 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:05:18 asia/tehran] PHP Notice:  Undefined variable: text_message in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 68
+[17-Jul-2024 12:05:18 asia/tehran] PHP Notice:  Undefined variable: callback_data in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 214
+[17-Jul-2024 12:05:19 asia/tehran] PHP Notice:  Undefined index: code in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php on line 48
+[17-Jul-2024 12:05:19 asia/tehran] PHP Notice:  Undefined index: message in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php on line 49
+[17-Jul-2024 08:35:41 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:35:41 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:35:41 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:35:41 UTC] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 17
+[17-Jul-2024 08:35:41 UTC] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 28
+[17-Jul-2024 08:35:41 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:35:41 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:35:41 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:05:41 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:05:41 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:05:41 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:05:41 asia/tehran] PHP Notice:  Undefined variable: text_message in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 68
+[17-Jul-2024 12:05:41 asia/tehran] PHP Notice:  Undefined variable: callback_data in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 214
+[17-Jul-2024 12:05:42 asia/tehran] PHP Notice:  Undefined index: code in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php on line 48
+[17-Jul-2024 12:05:42 asia/tehran] PHP Notice:  Undefined index: message in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php on line 49
+[17-Jul-2024 08:35:44 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:35:44 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:35:44 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:35:44 UTC] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 17
+[17-Jul-2024 08:35:44 UTC] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 28
+[17-Jul-2024 08:35:44 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:35:44 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:35:44 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:05:44 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:05:44 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:05:44 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:05:44 asia/tehran] PHP Notice:  Undefined variable: text_message in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 68
+[17-Jul-2024 12:05:44 asia/tehran] PHP Notice:  Undefined variable: callback_data in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 214
+[17-Jul-2024 12:05:45 asia/tehran] PHP Notice:  Undefined index: code in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php on line 48
+[17-Jul-2024 12:05:45 asia/tehran] PHP Notice:  Undefined index: message in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php on line 49
+[17-Jul-2024 08:35:47 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:35:47 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:35:47 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:35:47 UTC] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 17
+[17-Jul-2024 08:35:47 UTC] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 28
+[17-Jul-2024 08:35:47 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:35:47 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 08:35:47 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:05:47 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:05:47 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:05:47 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:05:47 asia/tehran] PHP Notice:  Undefined variable: text_message in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 68
+[17-Jul-2024 12:05:47 asia/tehran] PHP Notice:  Undefined variable: callback_data in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 214
+[17-Jul-2024 12:05:48 asia/tehran] PHP Notice:  Undefined index: code in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php on line 48
+[17-Jul-2024 12:05:48 asia/tehran] PHP Notice:  Undefined index: message in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php on line 49
+[17-Jul-2024 09:23:16 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 09:23:16 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 09:23:16 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 09:23:16 UTC] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 17
+[17-Jul-2024 09:23:16 UTC] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 28
+[17-Jul-2024 09:23:16 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 09:23:16 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 09:23:16 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:53:16 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:53:16 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:53:16 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:53:16 asia/tehran] PHP Notice:  Undefined variable: text_message in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 68
+[17-Jul-2024 12:53:16 asia/tehran] PHP Notice:  Undefined variable: callback_data in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 214
+[17-Jul-2024 12:53:16 asia/tehran] PHP Fatal error:  Uncaught Error: Class 'SoapClient' not found in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php on line 21
+[17-Jul-2024 09:23:59 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 09:23:59 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 09:23:59 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 09:23:59 UTC] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 17
+[17-Jul-2024 09:23:59 UTC] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 28
+[17-Jul-2024 09:23:59 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 09:23:59 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 09:23:59 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:53:59 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:53:59 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:53:59 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:53:59 asia/tehran] PHP Notice:  Undefined variable: text_message in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 68
+[17-Jul-2024 12:53:59 asia/tehran] PHP Notice:  Undefined variable: callback_data in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 214
+[17-Jul-2024 12:53:59 asia/tehran] PHP Fatal error:  Uncaught Error: Class 'SoapClient' not found in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php on line 21
+[17-Jul-2024 09:24:01 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 09:24:01 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 09:24:01 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 09:24:01 UTC] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 17
+[17-Jul-2024 09:24:01 UTC] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 28
+[17-Jul-2024 09:24:01 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 09:24:01 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 09:24:01 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:54:01 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:54:01 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:54:01 asia/tehran] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 17
+[17-Jul-2024 12:54:01 asia/tehran] PHP Notice:  Undefined variable: text_message in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 68
+[17-Jul-2024 12:54:01 asia/tehran] PHP Notice:  Undefined variable: callback_data in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/index.php on line 214
+[17-Jul-2024 12:54:01 asia/tehran] PHP Fatal error:  Uncaught Error: Class 'SoapClient' not found in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/pay.php on line 21
+[09-Oct-2024 11:45:47 UTC] PHP Notice:  Undefined index: amount in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/verify.php on line 13
+[09-Oct-2024 11:45:47 UTC] PHP Notice:  Undefined index: code in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/verify.php on line 33
+[09-Oct-2024 11:45:47 UTC] PHP Notice:  Use of undefined constant apiUrl - assumed 'apiUrl' in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/pay/zp/verify.php on line 62
+[09-Oct-2024 11:45:47 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 22
+[09-Oct-2024 11:45:47 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 22
+[09-Oct-2024 11:45:47 UTC] PHP Notice:  Trying to get property of non-object in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 22
+[09-Oct-2024 11:45:47 UTC] PHP Notice:  Use of undefined constant apiUrl - assumed 'apiUrl' in /home/mrkgviph/public_html/telegram_project/abzarvpnbot/telegram.php on line 69

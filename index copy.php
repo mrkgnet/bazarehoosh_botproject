@@ -1,0 +1,483 @@
+<?php
+//--------------------------------------------------------------
+require_once "telegram.php";
+require_once "config.php";
+require_once "jdf.php";
+require_once "user/user-function-bot.php";
+require_once "admin/admin-function-bot.php";
+//------------------------------------------------------------------
+$update = file_get_contents("php://input");
+file_put_contents('result.txt', $update);
+$update = json_decode($update, true);
+$data = json_decode(file_get_contents("php://input"));
+$telegram = new telegram();
+if (array_key_exists('message', $data)) {
+    $user_id = $data->message->from->id;
+    $chat_id = $data->message->chat->id;
+    $message_id = $data->message->message_id;
+    $user_name = '@' . $data->message->from->username;
+    $last_name = $data->message->from->last_name;
+    $first_name = $data->message->from->first_name;
+    $text_message = $data->message->text;
+    $audio = $data->message->audio->file_id;
+    $caption = $data->message->caption;
+    $fileid_photo = $data->message->photo[2]->file_id;
+
+} //_____________________________________________________________________
+
+elseif (array_key_exists('callback_query', $data)) {
+    $callback_id = $data->callback_query->id;
+    $user_id = $data->callback_query->from->id;
+    $chat_id = $data->callback_query->message->chat->id;
+    $message_id = $data->callback_query->message->message_id;
+    $user_name = $data->callback_query->from->username;
+    $first_name = $data->callback_query->from->first_name;
+    $text_callback = $data->callback_query->data;
+    $callback_data = $data->callback_query->data;
+}
+//_____________________________________________________________________
+
+$time_stamp = time();
+$time_persion = jdate('Y/n/j-H:i:s');
+
+$telegram->sendMessage($chat_id, "📢| در حال ارسال پیام ...");
+//user
+if ($user_id != adminChatIDMain) {
+    $sql = "UPDATE tbl_user SET role='user' WHERE id='$user_id'";
+    $stmt = $telegram->db->query($sql);
+    $stmt->execute();
+    $user = new User($user_id, $chat_id, $first_name, $last_name, $user_name, $time_stamp, $time_persion);
+    if ($text_message != null) {
+        switch ($text_message) {
+            case '/start':
+            case '🏘| خانه':
+                {
+                    User::home($user_id, $chat_id, $first_name, $last_name, $user_name, $message_id);
+                }
+                break;
+            case '💰| تعرفه قیمت ها':
+                {
+                    User::tarefe_gheymatha($user_id, $chat_id);
+
+                }
+                break;
+            case '💣| سرویس v2ray':
+                {
+                    User::tarefe_gheymatha_v2ray($chat_id);
+                }
+                break;
+            case '👨‍🏫| مشاهده آموزش ها':
+                {
+                    User::moshahede_amoozesha($chat_id);
+                }
+                break;
+            case '💣| آموزش سرویس v2ray':
+                {
+                    User::amoozesh_service_v2ray($chat_id);
+                }
+                break;
+            case 'آموزش سرویس v2ray|اندروید|📱':
+                {
+                    User::amoozesh_service_v2ray_android($chat_id);
+                }
+                break;
+            case 'آموزش سرویس v2ray|آیفون|📲':
+                {
+                    User::amoozesh_service_v2ray_iphone($chat_id);
+                }
+                break;
+            case 'آموزش سرویس v2ray|ویندوز|💻':
+                {
+                    User::amoozesh_service_v2ray_windows($chat_id);
+                }
+                break;
+            case '🔑| ورود به پنل کاربری':
+                {
+                    User::voroudbe_panel_karbari($chat_id, $user_id);
+                }
+                break;
+            case '🔄| بروزرسانی اطلاعات':
+                {
+                    $message_update = "🔄| اطلاعات شما با موفقیت بروزرسانی شد 🟢" . "\n" .
+                        '⏰| تاریخ و زمان بروزرسانی: ' . jdate("Y/n/j ساعت H:i:s ") . "\n" . '.';
+                    $telegram->sendMessage($user_id, $message_update);
+                    User::Display_user_account_information($user_id, $chat_id, $message_id, $callback_id);
+                }
+                //------------------------
+                break;
+            case "🕹| ورود به حساب دیگر":
+                {
+                    User::voroudbe_hesab_karbari_digar($user_id);
+                }
+                break;
+            case "♻️| تمدید اشتراک":
+                {
+                    User::tamdide_eshterak($chat_id, $user_id);
+                }
+                break;
+            case '🔌| شارژ حساب کاربری':
+                {
+                    User::sharje_hesab($chat_id, $user_id);
+                }
+                break;
+            case  "🔑| ارسال کد اختصاصی [جهت اطلاع رسانی اتمام حجم و زمان]" :
+                {
+
+                    User::sendUnicCodeUser($user_id);
+                }
+                break;
+            case '👨🏻‍💻| ارتباط با ادمین':
+            case 'ارتباط با ادمین|👨🏻‍💻':
+
+                {
+                    User::sendMessageToAdmin($user_id);
+                }
+                break;
+            case '💎| خرید تلگرام پرمیوم':
+                {
+                    User::byTelegramPermium($user_id);
+                }
+                break;
+            case 'اطلاع از ترافیک مصرفی':
+                {
+
+                    User::display_traffic($user_id, $text_message);
+                }
+                break;
+            default:
+            {
+                $sql = "SELECT * FROM tbl_user WHERE user_id = '$user_id'";
+                $stmt = $telegram->db->prepare($sql);
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($result['step_user'] == 'display_traffic') {
+                    User::display_traffic_api($user_id, $text_message);
+                }
+
+            }
+
+
+        }
+    }
+
+
+}
+//----------------------------------------
+
+//admin login  in system
+elseif ($user_id == adminChatIDMain) {
+    $time_persion = jdate('H:i:s-Y/n/j', time());
+    $telegram->sendMessage($user_id, $time_persion);
+    $sql = "UPDATE tbl_user SET role='admin' WHERE id='$user_id'";
+    $stmt = $telegram->db->query($sql);
+    $stmt->execute();
+//    Admin::display_menu($user_id);
+    if ($text_message != null) {
+        switch ($text_message) {
+            case '/start':
+            case '🏘| خانه':
+                {
+                    Admin::display_menu($user_id);
+                }
+                break;
+            case '✏️| تعریف اکانت':
+                {
+                    Admin::tarife_account($user_id);
+                }
+                break;
+            //------------------------
+            case "📝| تعریف اکانت [V2RAY]":
+                {
+                    Admin::tarife_account_v2ray($user_id);
+                }
+                break;
+            //------------------------
+            case "📝| ویرایش اکانت":
+                {
+                    Admin::vireayesh_account_admin($user_id);
+
+                }
+                break;
+            //------------------------
+            case "🟢|فعالسازی درگاه پرداخت کاربر":
+                {
+                    Admin::display_active_peyment($user_id);
+                }
+                break;
+            //------------------------
+            case '🔍| جست و جوی کاربر':
+                {
+                    Admin::search_user($user_id);
+                }
+                break;
+            //------------------------
+            case  "✍️| ارسال پیام به یوزر خاص" :
+                {
+                    Admin::sendMessageFromAdminToUser($user_id);
+
+                }
+                break;
+            //------------------------
+            case '🔉| ارسال پیام به همه کاربران' :
+                {
+                    Admin::sendMessageToAllUser($user_id);
+                }
+                break;
+            //------------------------
+            case "📣| ارسال پیام به کانال":
+                {
+
+                    Admin::sendMessageToChanel($user_id);
+                }
+                break;
+            //------------------------
+            case "🚀| ارسال کانفیگ":
+                {
+
+                    Admin::sendConfigFree($user_id);
+                }
+                break;
+            //------------------------
+            case '⏮| ارسال پروکسی':
+                {
+                    //Admin::sendProxy($user_id);
+//                    Admin::sendProxy($user_id);
+                    $telegram->sendMessage($user_id, 'این گزینه غیرفعال است با ادمین در ارتباط باشید' . "\n" . '.');
+                }
+                break;
+            //-----------------------
+            default:
+            {
+                $sql = "SELECT * FROM tbl_user WHERE user_id='$user_id'";
+                $stmt = $telegram->db->prepare($sql);
+                $stmt->execute();
+                $result_panel = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                switch ($result_panel['step_user']) {
+
+                    case 'Active_Peyment':
+                        {
+                            if ($result_panel['role'] == 'admin') {
+                                Admin::active_payment_user($user_id, $text_message);
+                            }
+
+                        }
+                        break;
+                    case"SendMessageFromAdminToUser":
+                        {
+                            if ($result_panel['role'] == 'admin') {
+                                Admin::messageToUnicUser($user_id, $text_message);
+                            }
+                        }
+                        break;
+                    case 'Recived_Text_Admin_To_User':
+
+                        {
+                            if ($result_panel['role'] == 'admin' and $text_message == '0') {
+                                Admin::recivedTextFromAdminToSendUser($user_id, $text_message);
+                            }
+                        }
+                        break;
+                    case 'ConfirmSendMessge_ToUnicUser':
+                    {
+                        if ($result_panel['role'] == 'admin') {
+                            Admin::confirmSendTextToUnicUser($user_id, $text_message);
+                        }
+                    }
+                    case "Send_Proxy":
+                        {
+                            if ($result_panel['role'] == 'admin') {
+                                Admin::getProxyToSendChanel($user_id, $text_message);
+                            }
+                        }
+                        break;
+                    case 'ConfirmSendMessge_WelecomeToUser':
+                        {
+                            if ($result_panel['role'] == 'admin') {
+                                Admin::ConfirmSendMessge_WelecomeToUser($text_message, $user_id);
+                            }
+                        }
+                        break;
+                    case "SendMessage_ToChanel":
+                        {
+                            if ($result_panel['role'] == 'admin') {
+                              Admin::send_message_to_channel_step_1($user_id, $text_message);
+                            }
+                        }
+                        break;
+                    case 'Recived_Text':
+                        {
+                            if ($result_panel['role'] == 'admin') {
+                                Admin::send_message_to_channel_step_2($user_id, $text_message);
+                            }
+                        }
+                        break;
+                    case 'SendMessage_AllUser':
+                        {
+                            if ($result_panel['role'] == 'admin') {
+                             Admin::send_message_to_all_user_step_1($user_id ,$text_message);
+                            }
+                        }
+                        break;
+                    //-------------------------
+                    case 'Recived_Text_To_All_User':
+                        {
+                            if ($result_panel['role'] == 'admin') {
+                               Admin::send_message_to_all_user_step_2($user_id ,$text_message);
+                            }
+                        }
+                        break;
+                    //--------------------------
+                    case 'SendConfigToChanel_ByAdmin':
+                        {
+                            if ($result_panel['role'] == 'admin') {
+                              Admin::send_config_free_to_chanel($user_id, $text_message);
+                            }
+                        }
+                        break;
+
+                }
+            }
+        }
+    }
+//    ------------------
+    if ($fileid_photo != null) {
+
+        $sql = "SELECT * FROM tbl_user WHERE user_id='$user_id'";
+        $stmt = $telegram->db->prepare($sql);
+        $stmt->execute();
+        $res = $stmt->fetch(PDO::FETCH_ASSOC);
+        switch ($res['step_user']) {
+            case 'Recived_Text':
+                {
+                    if ($res['role'] == 'admin') {
+                        Admin::recived_photo_admin($user_id ,$fileid_photo);
+                    }
+                }
+                break;
+            case 'Recived_Text_To_All_User':
+                {
+                    if ($res['role'] == 'admin') {
+                       Admin::recived_photo_to_send_all_user($user_id,$fileid_photo);
+                    }
+                }
+                break;
+            case 'Recived_Text_Admin_To_User':
+                {
+                    if ($res['role'] == 'admin') {
+                      Admin::recived_media_from_admin_to_send_user($user_id ,$fileid_photo);
+                    }
+                }
+                break;
+        }
+    }
+}
+else {
+
+
+    if ($text_message != null) {
+
+//        $telegram->sendChatAction($chat_id, 'typing');
+        $rowsTblUsers = $telegram->db->query("select users.step , users.StepTable from users")->fetch();
+        $rowsTblInfo = $telegram->db->query("select info.step , info.StepTable from info")->fetch();
+        $rows = $telegram->db->query("select * from info where user_id=" . $user_id)->fetch();
+        $rows_users1 = $telegram->db->query("select * from users")->fetch();
+
+
+        switch ($text_message) {
+//
+
+            default :
+            {
+                //-----------------------
+
+                //-----------------------
+                switch ($result_panel['step_user']) {
+                    case 'Time_Delkhah':
+                        {
+                            if ($result_panel['role'] == 'user') {
+                                $telegram = new telegram();
+                                $telegram->sendChatAction($user_id, 'typing');
+                                //------------------------
+                                $sql = "UPDATE tbl_user SET step_user='Send_Day_V2ray', role='user'  WHERE user_id='$user_id'";
+                                $stmt = $telegram->db->prepare($sql);
+                                $stmt->execute();
+                                $txtMsg = "لطفا حجم را به صورت [عددی] وارد کنید " . "\n" . "به عنوان مثال: 45" . "\n" . ".";
+                                $telegram->forceReply($user_id, $txtMsg);
+                                //------------------------
+                                $sql = "UPDATE tbl_user SET day_v2ray='$text_message' WHERE user_id='$user_id'";
+                                $stmt = $telegram->db->prepare($sql);
+                                $stmt->execute();
+
+                            }
+                        }
+                        break;
+                    //-------------------------
+
+                    case "Send_Day_V2ray":
+                        {
+                            if ($result_panel['role'] == 'user') {
+                                $telegram = new telegram();
+                                $telegram->sendChatAction($user_id, 'typing');
+                                //------------------------
+                                $sql = "UPDATE tbl_user SET step_user='Send_Hajm_V2ray', role='user'  WHERE user_id='$user_id'";
+                                $stmt = $telegram->db->prepare($sql);
+                                $stmt->execute();
+
+                                //------------------------
+                                //------------------------
+                                $sql = "UPDATE tbl_user SET hajm_v2ray='$text_message' WHERE user_id='$user_id'";
+                                $stmt = $telegram->db->prepare($sql);
+                                $stmt->execute();
+
+
+                                //---------------------
+
+                                $sqlFetch = "SELECT * FROM tbl_user WHERE user_id=" . $user_id;
+                                $stmtFetch = $telegram->db->prepare($sqlFetch);
+                                $stmtFetch->execute();
+                                $resFetch = $stmtFetch->fetch(PDO::FETCH_ASSOC);
+                                $dayV2ray = $resFetch['day_v2ray'];
+                                $hajm_v2ray = $resFetch['hajm_v2ray'];
+                                $endFactor = $hajm_v2ray * 2000;
+                                $txtFetch = "📝 فاکتور پرداختی شما به شرح زیر است:" . "\n" . "◀ سرویس ویتوری" . "\n" . "◀ زمان اشتراک شما : " . "$dayV2ray" . "\n" . "◀ حجم اشتراک شما:" . "  $hajm_v2ray" . "\n" . "◀ مبلغ نهایی پرداخت :" . $endFactor . " " . "تومان" . "\n" . ".";
+                                $keyboardFactor = [
+                                    [['text' => 'پرداخت فاکتور:' . $endFactor . ' ' . 'تومان', 'url' => 'https://t.me/abzarvpn_admin1']]
+                                ];
+                                $telegram->sendMessage($user_id, $txtFetch, $keyboardFactor);
+
+                            }
+                        }
+                        break;
+                    //-------------------------
+                    case "Send_Hajm_V2ray":
+                        {
+                            if ($result_panel['role'] == 'user') {
+                                $telegram = new telegram();
+                                $telegram->sendChatAction($user_id, 'typing');
+                                //------------------------
+                                $sql = "UPDATE tbl_user SET step_user='show_factor_v2ray', role='user'  WHERE user_id='$user_id'";
+                                $stmt = $telegram->db->prepare($sql);
+                                $stmt->execute();
+                            }
+                        }
+                        break;
+
+                    default:
+                    {
+
+
+                    }
+
+
+                }
+            }
+        }
+
+    }
+}
+require_once("callback-data-bot.php");
+
+
+//----------------------------
+?>
