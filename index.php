@@ -39,7 +39,7 @@ if (isset($data->message)) {
     $text_message = $data->message->text ?? null;
     $audio = $data->message->audio->file_id ?? null;
     $caption = $data->message->caption ?? null;
-    
+
     // دریافت باکیفیت‌ترین عکس ارسالی در صورت وجود
     if (isset($data->message->photo) && is_array($data->message->photo)) {
         $last_photo = end($data->message->photo);
@@ -82,9 +82,7 @@ if ($user_id != null && $user_id != adminChatIDMain) {
                 User::tarefe_gheymatha($user_id, $chat_id);
                 break;
 
-            case '💣| سرویس v2ray':
-                User::tarefe_gheymatha_v2ray($chat_id);
-                break;
+
 
             case '👨‍🏫| مشاهده آموزش ها':
                 User::moshahede_amoozesha($chat_id);
@@ -102,10 +100,6 @@ if ($user_id != null && $user_id != adminChatIDMain) {
                 User::amoozesh_service_v2ray_iphone($chat_id);
                 break;
 
-            case 'آموزش سرویس v2ray|ویندوز|💻':
-                User::amoozesh_service_v2ray_windows($chat_id);
-                break;
-
             case '🔑| ورود به پنل کاربری':
                 User::voroudbe_panel_karbari($chat_id, $user_id);
                 break;
@@ -117,33 +111,10 @@ if ($user_id != null && $user_id != adminChatIDMain) {
                 User::Display_user_account_information($user_id, $chat_id, $message_id, $callback_id);
                 break;
 
-            case "🕹| ورود به حساب دیگر":
-                User::voroudbe_hesab_karbari_digar($user_id);
-                break;
-
-            case "♻️| تمدید اشتراک":
-                User::tamdide_eshterak($chat_id, $user_id);
-                break;
-
-            case '🔌| شارژ حساب کاربری':
-                User::sharje_hesab($chat_id, $user_id);
-                break;
-
-            case "🔑| ارسال کد اختصاصی [جهت اطلاع رسانی اتمام حجم و زمان]":
-                User::sendUnicCodeUser($user_id);
-                break;
 
             case '👨🏻‍💻| ارتباط با ادمین':
             case 'ارتباط با ادمین|👨🏻‍💻':
                 User::sendMessageToAdmin($user_id);
-                break;
-
-            case '💎| خرید تلگرام پرمیوم':
-                User::byTelegramPermium($user_id);
-                break;
-
-            case 'اطلاع از ترافیک مصرفی':
-                User::display_traffic($user_id, $text_message);
                 break;
 
             default:
@@ -161,7 +132,7 @@ if ($user_id != null && $user_id != adminChatIDMain) {
                         case 'Time_Delkhah':
                             if ($result_panel['role'] == 'user') {
                                 $telegram->sendChatAction($user_id, 'typing');
-                                
+
                                 $sql = "UPDATE tbl_user SET step_user='Send_Day_V2ray', role='user', day_v2ray=:day WHERE user_id=:user_id";
                                 $stmt = $telegram->db->prepare($sql);
                                 $stmt->execute([':day' => $text_message, ':user_id' => $user_id]);
@@ -231,19 +202,7 @@ elseif ($user_id == adminChatIDMain) {
             case '🏘| خانه':
                 Admin::display_menu($user_id);
                 break;
-
-            case '✏️| تعریف اکانت':
-                Admin::tarife_account($user_id);
-                break;
-
-            case "📝| تعریف اکانت [V2RAY]":
-                Admin::tarife_account_v2ray($user_id);
-                break;
-
-            case "📝| ویرایش اکانت":
-                Admin::vireayesh_account_admin($user_id);
-                break;
-
+                        
             case "🟢|فعالسازی درگاه پرداخت کاربر":
                 Admin::display_active_peyment($user_id);
                 break;
@@ -263,15 +222,7 @@ elseif ($user_id == adminChatIDMain) {
             case "📣| ارسال پیام به کانال":
                 Admin::sendMessageToChanel($user_id);
                 break;
-
-            case "🚀| ارسال کانفیگ":
-                Admin::sendConfigFree($user_id);
-                break;
-
-            case '⏮| ارسال پروکسی':
-                $telegram->sendMessage($user_id, 'این گزینه غیرفعال است با ادمین در ارتباط باشید' . "\n" . '.');
-                break;
-
+          
             default:
                 $sql = "SELECT * FROM tbl_user WHERE user_id=:user_id";
                 $stmt = $telegram->db->prepare($sql);
@@ -382,4 +333,3 @@ elseif ($user_id == adminChatIDMain) {
 }
 
 require_once("callback-data-bot.php");
-?>

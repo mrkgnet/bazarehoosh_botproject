@@ -202,23 +202,7 @@ public function __construct(
         $telegram->sendMessage2($chat_id, $msg, $keyboard);
     }
 
-    public static function tarefe_gheymatha_v2ray($chat_id)
-    {
-        $telegram = new telegram();
-        $telegram->sendChatAction($chat_id, 'typing');
-        $telegram = new telegram();
-        $msg = '<b>' . " 📣| سرویس فوق العاده سریع ویتوری|v2ray به صورت حجمی ارائه می شود"
-            . "\n" . "👨‍👨‍👦| بدون محدودیت کاربر"
-            . "\n" . "⏰| قابلیت مدیریت حجم و زمان به صورت پویا در داخل اپلیکیشن" .
-            "\n" . "\n" . "✅| جهت خرید از طریق دکمه زیر (ارتباط با ادمین)به پشتیبانی پیام دهید " . '</b>';
-
-        $keyboard = [
-            [['text' => "ارتباط با ادمین|👨🏻‍💻"]],
-            //            [['text' => "بازگشت به مرحله قبل|🔙"]],
-            [['text' => "🏘| خانه"]]
-        ];
-        $telegram->sendMessage2($chat_id, $msg, $keyboard);
-    }
+  
 
     public static function moshahede_amoozesha($chat_id)
     {
@@ -354,22 +338,7 @@ public function __construct(
         $telegram->sendPhoto($chat_id, $photoFileId_1, $caption, $keyboard);
     }
 
-    public static function amoozesh_service_v2ray_windows($chat_id)
-    {
-        $telegram = new telegram();
-        $telegram->sendChatAction($chat_id, 'typing');
-        $telegram = new telegram();
-        $dlFile = 'https://t.me/abzarvpn/226';
-        $caption = '◀️ کانفیگ اختصاصی ارسال شده برای شما را مطابق تصویر بالا راه اندازی کنید' . "\n"
-            . "⏬ لینک دانلود نرم افزار(در پایین)" . "\n" . ".";
-        $photoFileId_1 = 'AgACAgQAAxkBAAJL5GbSJT7XIYRQvM9h8KT4WJ5YZMENAALdwjEbwTSRUnDCYeO1E9LMAQADAgADeQADNQQ';
-
-        $keyboard = [
-            [['text' => 'دانلود نرم افزار|⏬', 'url' => 'https://apps.apple.com/us/app/v2box-v2ray-client/id6446814690']],
-
-        ];
-        $telegram->sendPhoto($chat_id, $photoFileId_1, $caption, $keyboard);
-    }
+   
 
     public static function voroudbe_panel_karbari($chat_id, $user_id)
     {
@@ -451,21 +420,7 @@ public function __construct(
         $telegram->sendMessage2($chat_id, $msgSendMessage, $keyboardHome);
     }
 
-    public static function voroudbe_hesab_karbari_digar($user_id)
-    {
-        $telegram = new telegram();
-        //-----------------------------------
-        $sqlUpdate = "UPDATE tbl_user SET step_user='Chagne_Account' WHERE user_id='$user_id'";
-        $stmtUpdate = $telegram->db->prepare($sqlUpdate);
-        $stmtUpdate->execute();
-        //-----------------------------------
-        $message_account = "⚠| برای ورود به حساب کاربری دیگر لازم است از حساب کاربری خود خارج شوید[دقت داشته باشید مجدد می توانید به حساب کاربری اول خود وارد شوید و اطلاعات شما از دست نمی رود]" . "\n" . '.';
-        $keyboard = [
-            [['text' => '❌|انصراف', 'callback_data' => 'Enseraf_OtherAccount'], ['text' => '✅| تایید ', 'callback_data' => 'Confirm_OtherAccount']]
-        ];
-
-        $telegram->sendMessage($user_id, $message_account, $keyboard);
-    }
+ 
 
     public static function send_username($chat_id, $user_id, $text_message)
     {
@@ -507,32 +462,9 @@ public function __construct(
         //------------------------
     }
 
-    public static function tamdide_eshterak($chat_id, $user_id)
-    {
-        $telegram = new telegram();
-        $telegram->sendChatAction($chat_id, 'typing');
-        //------------------------
-        $sql = "UPDATE tbl_user SET step_user='Tamdide_Eshterak' WHERE user_id='$user_id'";
-        $stmt = $telegram->db->prepare($sql);
-        $stmt->execute();
-        //------------------------
-        $txtTamdid = '⚠| ' . "در حال حاضر امکان تمدید اتوماتیک وجود ندارد شما می توانید یا از گزینه خرید اکانت جدید اقدام به تهیه اشتراک کنید یا از طریق ادمین اقدام به تمدید اکانت قبلی خود کنید" . "\n" . ".";
-        $telegram->sendMessage($user_id, $txtTamdid);
-    }
 
-    public static function sharje_hesab($chat_id, $user_id)
-    {
-        $telegram = new telegram();
-        $telegram->sendChatAction($chat_id, 'typing');
-        //------------------------
-        $sql = "UPDATE tbl_user SET step_user='Sharje_Hesab' WHERE user_id='$user_id'";
-        $stmt = $telegram->db->prepare($sql);
-        $stmt->execute();
-        //------------------------
-        $txtSharjeHesab = "مبلغ مورد نظر برای شارژ کیف پول خود را به صورت عددی و برحسب تومان وارد کنید  " . "\n" . "به عنوان مثال : 100000" . "\n" . '.';
 
-        $telegram->sendMessage($user_id, $txtSharjeHesab);
-    }
+  
 
     public static function ersal_mablagh_sharje($text_message, $chat_id, $user_id, $first_name, $last_name, $user_name)
     {
@@ -556,19 +488,7 @@ public function __construct(
            }*/
     }
 
-    public static function sendUnicCodeUser($user_id)
-    {
-        $telegram = new telegram();
-        $telegram->sendChatAction($user_id, 'typing');
-        //------------------------
-        //------------------------
-        $sql = "UPDATE tbl_user SET step_user='SendUnicCodeUser' , role='user'  WHERE user_id='$user_id'";
-        $stmt = $telegram->db->prepare($sql);
-        $stmt->execute();
-        //------------------------
-        $txtGetData = "◀️ لطفا کد اختصاصی و یا یوزرنیم اختصاصی خود را که ادمین برای شما ارسال کرده را در وارد کنید" . "\n" . '.';
-        $telegram->forceReply($user_id, $txtGetData);
-    }
+ 
 
     public static function byNewInstance($user_id)
     {
@@ -648,23 +568,7 @@ public function __construct(
         $telegram->sendMessage($user_id, $msgtoadmin, $keyboard);
     }
 
-    public static function byTelegramPermium($user_id)
-    {
-        $telegram = new telegram();
-        $telegram->sendChatAction($user_id, 'typing');
-        //------------------------
-        $sql = "UPDATE tbl_user SET step_user='ByTelegram_Permium', role='user'  WHERE user_id='$user_id'";
-        $stmt = $telegram->db->prepare($sql);
-        $stmt->execute();
-        //------------------------
-        $msgtoadmin = "💎💎" . "شما می توانید از طریق تیم ما تلگرام پرمیوم به صورت اورجینال و اصلی نه فیک و موقت با مدت زمان تعیین شده از سمت خود تلگرام به صورت " . "\n" . "◀️ سه ماهه" . "\n" . "◀️ شش ماهه" . "\n" . "◀️ یکساله " . "\n" . 'تهیه کنید' . "\n" . "برای دریافت اخرین قیمت به ایدی پشتیبانی پیام دهید" . "\n" . ".";
-        $keyboard = [
-            [
-                ['text' => '👨🏻‍💻| ارتباط با ادمین', 'url' => 'https://t.me/abzarvpn_admin1']
-            ]
-        ];
-        $telegram->sendMessage($user_id, $msgtoadmin, $keyboard);
-    }
+
 
     public static function ComingToBot($chat_id, $user_id, $message_id)
     {
@@ -781,17 +685,7 @@ public function __construct(
 
     }
 
-    public static function display_traffic($user_id, $text_message)
-    {
-        $telegram = new telegram();
-        $sql = "UPDATE tbl_user SET step_user='display_traffic' WHERE user_id='$user_id' ";
-        $stmt = $telegram->db->prepare($sql);
-        $stmt->execute();
-        $telegram->sendMessage($user_id, 'یوزرنیم اکانت خود را ارسال کنید.' . "\n" . '(به عنوان مثال: vipuser332)');
-        //------------------------
-
-    }
-
+  
     public static function display_traffic_api($user_id, $text_message)
     {
         $telegram = new telegram();
