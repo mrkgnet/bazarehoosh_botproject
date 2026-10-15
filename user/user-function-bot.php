@@ -108,30 +108,17 @@ class User
     }
 
 
-    public static function home($user_id, $chat_id, $first_name, $last_name, $user_name, $message_id)
+    public static function home($user_id,
+            $chat_id,
+            $first_name,
+            $last_name,
+            $user_name,
+            $message_id)
     {
         $telegram = new telegram();
-        $sqlCHK = "SELECT * FROM tbl_user WHERE user_id='$user_id'";
-        $stmt = $telegram->db->prepare($sqlCHK);
-        $stmt->execute();
-        $result_chkuserp = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($result_chkuserp['register_user'] == 1) {
-            //--------------------query
-            $sqlUpdate = "UPDATE tbl_user SET step_user='StartBot' , role = 'user' WHERE user_id='$user_id'";
-            $stmtUpdate = $telegram->db->prepare($sqlUpdate);
-            $stmtUpdate->execute();
-            //--------------------query
-            $telegram->replyKeyboardRemove($user_id, 'ربات مجدد استارت شد');
-            $sql = "SELECT register_user FROM tbl_user WHERE user_id=" . $user_id;
-            $stmt = $telegram->db->prepare($sql);
-            $stmt->execute();
-            $result_register = $stmt->fetch(PDO::FETCH_ASSOC);
-            //-------------------------
-            User::Index($chat_id, $user_id, $message_id);
-        } else {
-            User::DisplayStart($user_id, $chat_id, $first_name, $last_name, $user_name);
-        }
+        $telegram->sendMessage($chat_id, "در حال بروزرسانی است لطفا صبر کنید");
+       
+       
     }
 
     public function enable_disable($chat_id)
@@ -419,75 +406,6 @@ class User
     }
 
 
-
-    public static function send_username($chat_id, $user_id, $text_message)
-    {
-        //        $telegram = new telegram();
-        //        $telegram->sendChatAction($chat_id, 'typing');
-        //        //-----------------------
-        //        $sql = "UPDATE tbl_user SET step_panel='Send_Username', username_panel='$text_message' WHERE user_id='$user_id'";
-        //        $stmt = $telegram->db->prepare($sql);
-        //        $stmt->execute();
-        //        //------------------------
-        //        $msgReplayUser = "پسورد خود را ارسال کنید";
-        //        $telegram->forceReply($user_id, $msgReplayUser);
-    }
-
-    public static function send_password($chat_id, $user_id, $text_message)
-    {
-        //        $telegram = new telegram();
-        //        $telegram->sendChatAction($chat_id, 'typing');
-        //        //------------------------
-        //        $sql = "UPDATE tbl_user SET step_user='Recive_DataUser',already_login='1' , password_panel='$text_message' WHERE user_id='$user_id'";
-        //        $stmt = $telegram->db->prepare($sql);
-        //        $stmt->execute();
-        //        //------------------------
-        //        $sql2 = "SELECT * FROM tbl_user WHERE user_id=" . $user_id;
-        //        $stmt2 = $telegram->db->prepare($sql2);
-        //        $stmt2->execute();
-        //        $result_panel = $stmt2->fetch(PDO::FETCH_ASSOC);
-        //
-        //
-        //        $keyboard = [
-        //            [['text' => '⬅️| ورود به پنل', 'callback_data' => 'login_account']],
-        //            [['text' => '📝| ویرایش اطلاعات', 'callback_data' => 'login_account2']],
-        ////                            [['text'=>'خانه|⬅️','callback_data' => 'login_account3']]
-        //        ];
-        //        $showData = "✏️| نام کاربری شما: " . $result_panel['username_panel'] . "\n" . "🔐| پسورد شما: " . $result_panel['password_panel'] . "\n" . "📋| اطلاعات شما با موفقیت در تاریخ:  " . jdate("Y/n/j ساعت H:i:s ") . " ثبت شد" . "\n" .
-        //            "🥰| ضمن تشکر از ثبت اطلاعات هم اکنون می توانید از طریق دکمه زیر وارد پنل کاربری خود شوید " . ".";
-        //
-        //        $telegram->sendMessage($user_id, $showData, $keyboard);
-        //------------------------
-    }
-
-
-
-
-
-    public static function ersal_mablagh_sharje($text_message, $chat_id, $user_id, $first_name, $last_name, $user_name)
-    {
-        /*   $telegram = new telegram();
-           $telegram->sendChatAction($chat_id, 'typing');
-           //------------------------
-           $sql = "UPDATE tbl_user SET step_user='ErsaleMablagh_SharjeHesab' WHERE user_id='$user_id'";
-           $stmt = $telegram->db->prepare($sql);
-           $stmt->execute();
-           //------------------------
-           if (is_numeric($text_message)) {
-               $txtSharjeHesab = "فاکتور اولیه شما ایجاد شد:" . "\n" . "شارژ کیف پول به مبلغ: " . $text_message . " " . "تومان" . "\n" . "نام پرداخت کننده: " . "$first_name" . "\n" . 'نام خانوادگی پرداخت کننده: ' . "$last_name" . "\n" . "آیدی تلگرام پرادخت کننده: " . "$user_name" . "\n" . "تاریخ و زمان ثبت شفارش " . ": " . jdate("Y/n/j ساعت H:i:s ") . "\n" . '.';
-               $keyboard = [
-                   [['text' => '✅ تایید و پرداخت [کلیک کنید]', 'url' => baseurl . "pay/zp/pay.php?user_id=$user_id&amount=$text_message" . '0']],
-                   [['text' => '❌ انصراف', 'url' => 'https://google.com' . "/" . "$text_message"]]
-               ];
-               $telegram->sendMessage($user_id, $txtSharjeHesab, $keyboard);
-           } else {
-               $telegram->sendMessage($user_id, 'string');
-
-           }*/
-    }
-
-
-
     public static function byNewInstance($user_id)
     {
         $telegram = new telegram();
@@ -655,15 +573,23 @@ class User
     }
 
 
-   
+
+    
+
 public static function DisplayStart($user_id, $chat_id, $first_name, $last_name, $user_name)
 {
     $telegram = new telegram();
 
-    // فایل آیدی تصویر خوشامدگویی
+    // ====================================
+    // تصویر خوشامدگویی
+    // ====================================
+
     $photo = 'AgACAgQAAxkBAAIC42rRHJMwWH9QcZhogQwuxGHXsR8xAAKVEWsbw0CRUjBECwvHFy4WAQADAgADeQADPQQ';
 
+    // ====================================
     // متن خوشامدگویی
+    // ====================================
+
     $msg = "<b>سلام. به فروشگاه بازار هوش خوش آمدید.</b> 👋\n\n" .
 
         "اینجا گسترده‌ترین مرجع تخصصی خرید اکانت پریمیوم ابزارهای هوش‌مصنوعی و پلتفرم های خارجی با رقابتی‌ترین قیمت است. ✨\n\n" .
@@ -680,7 +606,10 @@ public static function DisplayStart($user_id, $chat_id, $first_name, $last_name,
 
         "<b>«اینجا تکنولوژی فردا را آسان بخر»</b>";
 
-    // دکمه شیشه‌ای ورود به ربات
+    // ====================================
+    // دکمه ورود به ربات
+    // ====================================
+
     $keyboard = [
         [
             [
@@ -690,13 +619,49 @@ public static function DisplayStart($user_id, $chat_id, $first_name, $last_name,
         ]
     ];
 
-    // ارسال تصویر همراه با متن و دکمه
-    $telegram->sendPhoto(
-        $chat_id,
-        $photo,
-        $msg,
-        $keyboard
-    );
+    // ====================================
+    // ارسال عکس و ثبت وضعیت
+    // ====================================
+
+    try {
+
+        // ارسال تصویر همراه متن و دکمه
+        $result = $telegram->sendPhoto(
+            $chat_id,
+            $photo,
+            $msg,
+            $keyboard
+        );
+
+        // بررسی موفقیت ارسال عکس
+        if (isset($result->ok) && $result->ok === true) {
+
+            // تغییر وضعیت خوشامدگویی به 1
+            $sql = "UPDATE tbl_user
+                    SET welcome_shown = 1
+                    WHERE user_id = :user_id
+                    AND welcome_shown = 0";
+
+            $stmt = $telegram->db->prepare($sql);
+
+            $stmt->execute([
+                ':user_id' => $user_id
+            ]);
+
+            return true;
+        }
+
+    } catch (Exception $e) {
+
+        // ثبت خطا در لاگ سرور
+        error_log(
+            "DisplayStart Error: " . $e->getMessage()
+        );
+
+    }
+
+    return false;
 }
+
 
 }

@@ -1,12 +1,11 @@
 <?php
 
-// ثبت نقش کاربر
-$sql = "UPDATE tbl_user SET role='user' WHERE user_id=:user_id";
-
-$stmt = $telegram->db->prepare($sql);
-$stmt->execute([':user_id' => $user_id]);
+// ====================================
+// ثبت یا بروزرسانی اطلاعات کاربر
+// ====================================
 
 // ساخت کاربر
+// اگر کاربر جدید باشد، داخل دیتابیس ثبت می‌شود
 $user = new User(
     $user_id,
     $chat_id,
@@ -17,37 +16,110 @@ $user = new User(
     $time_persion
 );
 
-// دستورات کاربر
+
+
+// ====================================
+// مدیریت دستورات کاربر
+// ====================================
+
 if ($text_message != null) {
 
     switch ($text_message) {
 
-        case '/start':
+        // ====================================
+        // دستور استارت
+        // ====================================
+
+
+case '/start':
+
+    // دریافت وضعیت خوشامدگویی
+    $sql = "SELECT welcome_shown FROM tbl_user
+            WHERE user_id = :user_id";
+
+    $stmt = $telegram->db->prepare($sql);
+
+    $stmt->execute([
+        ':user_id' => $user_id
+    ]);
+
+    $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user_data && $user_data['welcome_shown'] == 0) {
+
+        // نمایش پیام خوشامدگویی
+        // ثبت وضعیت داخل همین تابع انجام می‌شود
+        User::DisplayStart(
+            $user_id,
+            $chat_id,
+            $first_name,
+            $last_name,
+            $user_name
+        );
+
+    } else {
+
+        // نمایش منوی اصلی برای کاربران قدیمی
+        User::home(
+            $user_id,
+            $chat_id,
+            $first_name,
+            $last_name,
+            $user_name,
+            $message_id
+        );
+    }
+
+    break;
+
+       
+
+
+
+        // ====================================
+        // منوی اصلی
+        // ====================================
+
         case '🏘| خانه':
 
             User::home(
                 $user_id,
                 $chat_id,
-                $first_name,
-                $last_name,
-                $user_name,
                 $message_id
             );
 
             break;
 
+
+        // ====================================
+        // تعرفه قیمت‌ها
+        // ====================================
+
         case '💰| تعرفه قیمت ها':
 
-            User::tarefe_gheymatha($user_id, $chat_id);
+            User::tarefe_gheymatha(
+                $user_id,
+                $chat_id
+            );
 
             break;
 
-        // سایر دستورات فعلی کاربر اینجا قرار می‌گیرند
+
+        // ====================================
+        // سایر دستورات کاربر
+        // ====================================
+
+        // دستورات جدید را اینجا اضافه کن
+
+
+        // ====================================
+        // مراحل کاربر
+        // ====================================
 
         default:
 
-            // مراحل کاربر مثل خرید و ثبت سفارش
-            // در همین قسمت باقی می‌مانند
+            // مراحل خرید و ثبت سفارش
+            // در آینده اینجا قرار می‌گیرند
 
             break;
     }
