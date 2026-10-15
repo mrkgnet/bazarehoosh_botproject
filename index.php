@@ -67,6 +67,7 @@ if ($user_id != null && $user_id != adminChatIDMain) {
     $sql = "UPDATE tbl_user SET role='user' WHERE user_id=:user_id";
     $stmt = $telegram->db->prepare($sql);
     $stmt->execute([':user_id' => $user_id]);
+    $telegram->sendMessage($user_id, "👋| سلام $first_name 😊");
 
     $user = new User($user_id, $chat_id, $first_name, $last_name, $user_name, $time_stamp, $time_persion);
 
