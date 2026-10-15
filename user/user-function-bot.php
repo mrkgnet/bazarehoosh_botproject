@@ -10,40 +10,40 @@ class User
 {
 
 
-public function __construct(
-    $user_id,
-    $chat_id,
-    $first_name,
-    $last_name,
-    $user_name,
-    $time_stamp,
-    $time_persion
-) {
-    $telegram = new telegram();
+    public function __construct(
+        $user_id,
+        $chat_id,
+        $first_name,
+        $last_name,
+        $user_name,
+        $time_stamp,
+        $time_persion
+    ) {
+        $telegram = new telegram();
 
-    try {
+        try {
 
-        // فعال کردن نمایش خطاهای دیتابیس
-        $telegram->db->setAttribute(
-            PDO::ATTR_ERRMODE,
-            PDO::ERRMODE_EXCEPTION
-        );
+            // فعال کردن نمایش خطاهای دیتابیس
+            $telegram->db->setAttribute(
+                PDO::ATTR_ERRMODE,
+                PDO::ERRMODE_EXCEPTION
+            );
 
-        // بررسی وجود کاربر
-        $sql = "SELECT id FROM tbl_user WHERE user_id = :user_id LIMIT 1";
+            // بررسی وجود کاربر
+            $sql = "SELECT id FROM tbl_user WHERE user_id = :user_id LIMIT 1";
 
-        $stmt = $telegram->db->prepare($sql);
+            $stmt = $telegram->db->prepare($sql);
 
-        $stmt->execute([
-            ':user_id' => $user_id
-        ]);
+            $stmt->execute([
+                ':user_id' => $user_id
+            ]);
 
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // اگر کاربر وجود نداشت
-        if (!$user) {
+            // اگر کاربر وجود نداشت
+            if (!$user) {
 
-            $sql_insert = "INSERT INTO tbl_user (
+                $sql_insert = "INSERT INTO tbl_user (
                 user_id,
                 chat_id,
                 first_name,
@@ -65,49 +65,47 @@ public function __construct(
                 :active_peyment
             )";
 
-            $stmt_insert = $telegram->db->prepare($sql_insert);
+                $stmt_insert = $telegram->db->prepare($sql_insert);
 
-            $stmt_insert->execute([
-                ':user_id' => $user_id,
-                ':chat_id' => $chat_id,
-                ':first_name' => $first_name,
-                ':last_name' => $last_name,
-                ':username_telegram' => $user_name,
-                ':time_stamp' => $time_stamp,
-                ':step_user' => 'StartBot',
-                ':role' => 'user',
-                ':active_peyment' => 1
-            ]);
+                $stmt_insert->execute([
+                    ':user_id' => $user_id,
+                    ':chat_id' => $chat_id,
+                    ':first_name' => $first_name,
+                    ':last_name' => $last_name,
+                    ':username_telegram' => $user_name,
+                    ':time_stamp' => $time_stamp,
+                    ':step_user' => 'STARTBOT',
+                    ':role' => 'user',
+                    ':active_peyment' => 1
+                ]);
+            } else {
 
-        } else {
-
-            // بروزرسانی اطلاعات کاربر موجود
-            $sql_update = "UPDATE tbl_user SET
+                // بروزرسانی اطلاعات کاربر موجود
+                $sql_update = "UPDATE tbl_user SET
                 chat_id = :chat_id,
                 first_name = :first_name,
                 last_name = :last_name,
                 username_telegram = :username_telegram
                 WHERE user_id = :user_id";
 
-            $stmt_update = $telegram->db->prepare($sql_update);
+                $stmt_update = $telegram->db->prepare($sql_update);
 
-            $stmt_update->execute([
-                ':chat_id' => $chat_id,
-                ':first_name' => $first_name,
-                ':last_name' => $last_name,
-                ':username_telegram' => $user_name,
-                ':user_id' => $user_id
-            ]);
+                $stmt_update->execute([
+                    ':chat_id' => $chat_id,
+                    ':first_name' => $first_name,
+                    ':last_name' => $last_name,
+                    ':username_telegram' => $user_name,
+                    ':user_id' => $user_id
+                ]);
+            }
+        } catch (PDOException $e) {
+
+            // ذخیره خطا در لاگ سرور
+            error_log(
+                "Telegram Bot Database Error: " . $e->getMessage()
+            );
         }
-
-    } catch (PDOException $e) {
-
-        // ذخیره خطا در لاگ سرور
-        error_log(
-            "Telegram Bot Database Error: " . $e->getMessage()
-        );
     }
-}
 
 
     public static function home($user_id, $chat_id, $first_name, $last_name, $user_name, $message_id)
@@ -202,7 +200,7 @@ public function __construct(
         $telegram->sendMessage2($chat_id, $msg, $keyboard);
     }
 
-  
+
 
     public static function moshahede_amoozesha($chat_id)
     {
@@ -338,7 +336,7 @@ public function __construct(
         $telegram->sendPhoto($chat_id, $photoFileId_1, $caption, $keyboard);
     }
 
-   
+
 
     public static function voroudbe_panel_karbari($chat_id, $user_id)
     {
@@ -420,7 +418,7 @@ public function __construct(
         $telegram->sendMessage2($chat_id, $msgSendMessage, $keyboardHome);
     }
 
- 
+
 
     public static function send_username($chat_id, $user_id, $text_message)
     {
@@ -464,7 +462,7 @@ public function __construct(
 
 
 
-  
+
 
     public static function ersal_mablagh_sharje($text_message, $chat_id, $user_id, $first_name, $last_name, $user_name)
     {
@@ -488,7 +486,7 @@ public function __construct(
            }*/
     }
 
- 
+
 
     public static function byNewInstance($user_id)
     {
@@ -656,149 +654,49 @@ public function __construct(
 
     }
 
-    public static function DisplayStart($user_id, $chat_id, $first_name, $last_name, $user_name)
-    {
-        $telegram = new telegram();
-        $time_stamp = time();
-        $time_persion = jdate('Y/n/j-H:i:s');
 
-        //-----------------------------
-        $sql = "SELECT * FROM tbl_user";
-        $stmt = $telegram->db->prepare($sql);
-        $stmt->execute();
-        $numOfUserInDb = $stmt->rowCount();
-        //------------------------------
-        $numOfUserInDb = $numOfUserInDb + 1000;
-        //        $numberOfUser = '<b>' . '💎 تعداد کاربران فعال ربات:' . '</b>' . '<u>' . $numOfUserInDb . '</u>' . " کاربر " . "\n";
-        $msg = '<b>' . "🏆 به ربات ابزار وی پی ان خوش آمدید این ربات متعلق به کانال ابزار وی پی ان [abzarvpn@] می باشد" . '</b>' . "\n" . '<b>' . "🤔 اما چرا ابزار وی پی ان " . '</b>' . "\n" .
-            "🧑‍💻 نظارت مداوم بر ترافیک شبکه و بار سخت‌افزار" . "\n" .
-            "🧑‍💻  استفاده از سریع‌ترین پروتکل‌ها و تعریف کاربران جدید روی server جدید در صورت لزوم." .
+   
+public static function DisplayStart($user_id, $chat_id, $first_name, $last_name, $user_name)
+{
+    $telegram = new telegram();
 
-            "\n" . "✅ بازگشت بی‌چون‌ و چرای هزینه در صورت عدم رضایت." . "\n" . "📣 پشتیبانی فنی مداوم، به‌روزرسانی دستورالعمل‌ها و معرفی روش‌های جایگزین برای دور زدن فیلترینگ و مسدودی‌ها" . "\n" . "\n" . '.';
-        $keyboard = [
-            [['text' => 'ورود به ربات |📲', 'callback_data' => 'FirstComingToBot']]
-        ];
-        $telegram->sendMessage($chat_id, $msg, $keyboard);
+    // فایل آیدی تصویر خوشامدگویی
+    $photo = 'AgACAgQAAxkBAAIC42rRHJMwWH9QcZhogQwuxGHXsR8xAAKVEWsbw0CRUjBECwvHFy4WAQADAgADeQADPQQ';
 
-        //---------------------------
+    // متن خوشامدگویی
+    $msg = "<b>سلام. به فروشگاه بازار هوش خوش آمدید.</b> 👋\n\n" .
 
+        "اینجا گسترده‌ترین مرجع تخصصی خرید اکانت پریمیوم ابزارهای هوش‌مصنوعی و پلتفرم های خارجی با رقابتی‌ترین قیمت است. ✨\n\n" .
 
-    }
+        "<b>گوشه‌ای از ویژگی‌های فروشگاه بازار هوش:</b>\n" .
 
-  
-    public static function display_traffic_api($user_id, $text_message)
-    {
-        $telegram = new telegram();
-        $telegram->sendChatAction($user_id, 'typing');
-        //        $number_request = 0;
-        $sql = "SELECT * FROM tbl_traffic WHERE user_id='$user_id' ";
-        $stmt = $telegram->db->prepare($sql);
-        $stmt->execute();
-        $result_request = $stmt->fetch(PDO::FETCH_ASSOC);
-        $number_request = $result_request['number_request'];
-        if ($number_request >= 6) {
-            $txt_message_result = 'کاربر گرامی تعداد درخواست های شما بیش از حد مجاز  بوده دسترسی شما به مدت 30 دقیقه مسدود شد پس ازآن مجدد میتوانید اطلاعات ترافیک خود را مشاهده کنید' . "\n" . '.';
-            $telegram->sendMessage($user_id, $txt_message_result);
-        } else {
-            $number_request = $number_request + 1;
-            $sql_request = "UPDATE tbl_traffic SET number_request='$number_request' WHERE user_id='$user_id' ";
-            $stmt_request = $telegram->db->prepare($sql_request);
-            $stmt_request->execute();
+        "✅ اشتراک‌های اورجینال و معتبر ⭐️\n" .
+        "✅ تحویل در سریع‌ترین زمان ممکن ⚡️\n" .
+        "✅ گارانتی‌ با بازه زمانی مناسب 👑\n" .
+        "✅ قیمت رقابتی خدمات 💵\n" .
+        "✅ پشتیبانی کامل و سریع 24/7 ⏱️\n\n" .
 
+        "<b>فروشگاه بازار هوش از ابتدا تا الان یک شعار داشته:</b>\n\n" .
 
-            $text_message = strtolower($text_message);
-            $time_stamp = time();
-            $time_persion = jdate('Y/n/j-H:i:s', time());
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, 'https://net.abznet.top:8443/XLOo5XjGeMM1n18/login');
-            curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/32.0.1700.107 Chrome/32.0.1700.107 Safari/537.36');
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, "username=mrkgnetnet&password=65006500");
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_COOKIESESSION, true);
-            curl_setopt($ch, CURLOPT_COOKIEJAR, 'cookie-name');  //could be empty, but cause problems on some hosts
-            curl_setopt($ch, CURLOPT_COOKIEFILE, '/var/www/ip4.x/file/tmp');  //could be empty, but cause problems on some hosts
-            $answer = curl_exec($ch);
-            if (curl_error($ch)) {
-                echo curl_error($ch);
-            }
-            //another request preserving the session
-            curl_setopt($ch, CURLOPT_URL, 'https://net.abznet.top:8443/XLOo5XjGeMM1n18/panel/api/inbounds/getClientTraffics/' . $text_message);
-            curl_setopt($ch, CURLOPT_POST, false);
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-            curl_setopt($ch, CURLOPT_POSTFIELDS, "");
-            $answer2 = curl_exec($ch);
-            if (curl_error($ch)) {
-                echo curl_error($ch);
-            }
-            echo '<br>';
-            $convertString = json_decode($answer2);
-            //                    $telegram->sendMessage($user_id, $convertString);
-            //                    $telegram->sendMessage($user_id, $answer2);
-            if (array_key_exists('obj', $convertString)) {
-                //$telegram->sendMessage($user_id, 'yes');
-                $username_account = $convertString->obj->email;
-                $all_traffic_account = $convertString->obj->total;
-                $all_traffic_account = ($all_traffic_account / 1073735424.880463);
-                $all_traffic_account = round($all_traffic_account, 2);
-                $status_account = $convertString->obj->enable;
-                if ($status_account == 'true') {
-                    $status_account = 'فعال|✅';
-                } else {
-                    $status_account = 'غیرفعال|❌';
-                }
-                $upload_account = $convertString->obj->up;
-                $upload_account = ($upload_account / 1073735424.880463);
-                $upload_account = round($upload_account, 2);
-                $download_account = $convertString->obj->down;
-                $download_account = ($download_account / 1073735424.880463);
-                $download_account = round($download_account, 2);
-                $end_time = $convertString->obj->expiryTime;
-                //  $expire_time_account1= date('Y-m-d H:i:s',  $expire_time_account);
-                $end_time = $end_time / 1000;
-                $expire_time_account = jdate('Y/n/j ساعت H:i:s ', $end_time);
-                $sum_traffic_user = $download_account + $upload_account;
-                $baghi_mande_traffic = $all_traffic_account - $sum_traffic_user;
+        "<b>«اینجا تکنولوژی فردا را آسان بخر»</b>";
 
-                if ($baghi_mande_traffic == 0 and $download_account == 0 and $upload_account == 0) {
-                    $txt = 'اطلاعات شما یافت نشد احتمالا یوزر خود را به اشتباه وارد کردید برای دریافت یوزرنیم خود به ادمین پیام دهید';
-                    $keyboard = [
-                        [
-                            ['text' => '👨🏻‍💻| ارتباط با ادمین', 'url' => 'https://t.me/abzarvpn_admin1']
-                        ]
-                    ];
-                    $telegram->sendMessage($user_id, $txt, $keyboard);
-                } else {
-                    //$telegram->sendMessage($user_id, $temp);
-                    $keyboard = [
-                        [
-                            ['text' => '👨🏻‍💻| ارتباط با ادمین', 'url' => 'https://t.me/abzarvpn_admin1']
-                        ]
-                    ];
-                    $text_valume = '<b>' . 'اطلاعات اشتراک شما به شرح زیر است ' . '</b>' . "\n" . 'نام کاربری: ' . $username_account . "\n" . 'وضعیت اکانت: ' . $status_account . "\n" . 'کل ترافیک اولیه: ' . $all_traffic_account . ' گیگ ' . "\n" . "دانلود: " .
-                        $download_account . ' گیگ ' . "\n" . 'آپلود: ' . $upload_account . ' گیگ ' . "\n" . 'مجموع کل ترافیک مصرفی: ' . $sum_traffic_user . ' گیگ ' . "\n" .
-                        'باقی مانده ترافیک: ' . $baghi_mande_traffic . ' گیگ ' . "\n" . 'زمان پایان اشتراک: ' . $expire_time_account . "\n" . '---------' . "\n" . 'بروزرسانی شده در تاریخ: ' . $time_persion . "\n" . "." . "\n";
-                    $telegram->sendMessage($user_id, $text_valume, $keyboard);
-                    //            -------------------------------------------------------
-                    /*
-                        وارد کردن اطلاعات کاربر در دیتابیس
-                    */
-                    $query = "SELECT * FROM tbl_traffic WHERE user_id='$user_id' ";
-                    $stmt = $telegram->db->prepare($query);
-                    $stmt->execute();
-                    $result = $stmt->rowCount();
-                    if ($result == 0) {
+    // دکمه شیشه‌ای ورود به ربات
+    $keyboard = [
+        [
+            [
+                'text' => 'ورود به ربات |📲',
+                'callback_data' => 'FirstComingToBot'
+            ]
+        ]
+    ];
 
-                        $sql = "INSERT INTO tbl_traffic (user_id,account_username,remaining_traffic,expiration_time) VALUES ('$user_id','$username_account','$baghi_mande_traffic','$end_time')";
-                        $stmt = $telegram->db->prepare($sql);
-                        $stmt->execute();
-                    } else {
-                        $sql = "UPDATE tbl_traffic SET account_username ='$username_account' , remaining_traffic = '$baghi_mande_traffic' , expiration_time ='$end_time' WHERE user_id='$user_id' ";
-                        $stmt = $telegram->db->prepare($sql);
-                        $stmt->execute();
-                    }
-                }
-            }
-        }
-    }
+    // ارسال تصویر همراه با متن و دکمه
+    $telegram->sendPhoto(
+        $chat_id,
+        $photo,
+        $msg,
+        $keyboard
+    );
+}
+
 }
