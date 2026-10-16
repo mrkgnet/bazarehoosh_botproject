@@ -31,50 +31,41 @@ if ($text_message != null) {
         // ====================================
 
 
-case '/start':
+        case '/start':
 
-    // دریافت وضعیت خوشامدگویی
-    $sql = "SELECT welcome_shown FROM tbl_user
+            // دریافت وضعیت خوشامدگویی
+            $sql = "SELECT welcome_shown FROM tbl_user
             WHERE user_id = :user_id";
 
-    $stmt = $telegram->db->prepare($sql);
+            $stmt = $telegram->db->prepare($sql);
 
-    $stmt->execute([
-        ':user_id' => $user_id
-    ]);
+            $stmt->execute([
+                ':user_id' => $user_id
+            ]);
 
-    $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
+            $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($user_data && $user_data['welcome_shown'] == 0) {
+            if ($user_data && $user_data['welcome_shown'] == 0) {
 
-        // نمایش پیام خوشامدگویی
-        // ثبت وضعیت داخل همین تابع انجام می‌شود
-        User::DisplayStart(
-            $user_id,
-            $chat_id,
-            $first_name,
-            $last_name,
-            $user_name
-        );
+                // نمایش پیام خوشامدگویی
+                // ثبت وضعیت داخل همین تابع انجام می‌شود
+                User::DisplayStart(
+                    $user_id,
+                    $chat_id,
+                    $first_name,
+                    $last_name,
+                    $user_name
+                );
+            } else {
 
-    } else {
+                // نمایش منوی اصلی برای کاربران قدیمی
+                User::Index(
+                    $user_id,
+                    $message_id
+                );
+            }
 
-        // نمایش منوی اصلی برای کاربران قدیمی
-        User::home(
-            $user_id,
-            $chat_id,
-            $first_name,
-            $last_name,
-            $user_name,
-            $message_id
-        );
-    }
-
-    break;
-
-       
-
-
+            break;
 
         // ====================================
         // منوی اصلی
@@ -82,39 +73,22 @@ case '/start':
 
         case '🏘| خانه':
 
-            User::home(
+            User::Index(
                 $user_id,
-                $chat_id,
                 $message_id
             );
 
             break;
 
+        case '🎧 پشتیبانی و ثبت تیکت':
 
-        // ====================================
-        // تعرفه قیمت‌ها
-        // ====================================
-
-        case '💰| تعرفه قیمت ها':
-
-            User::tarefe_gheymatha(
+            User::sendMessageToAdmin(
                 $user_id,
-                $chat_id
+               
             );
 
             break;
 
-
-        // ====================================
-        // سایر دستورات کاربر
-        // ====================================
-
-        // دستورات جدید را اینجا اضافه کن
-
-
-        // ====================================
-        // مراحل کاربر
-        // ====================================
 
         default:
 

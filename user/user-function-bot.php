@@ -1,11 +1,10 @@
 <?php
 require_once "telegram.php";
 require_once "config.php";
-//require_once "userFunctions.php";
-//require_once "addminFunctions.php";
 require_once "jdf.php";
-// require_once "endTimeAccoutnUsers_Cronjob.php";
-//require_once "check-data-user-in-db-bot.php";
+require_once __DIR__ . '/functions/Start.php';
+
+
 class User
 {
 
@@ -107,265 +106,6 @@ class User
         }
     }
 
-
-    public static function home($user_id,
-            $chat_id,
-            $first_name,
-            $last_name,
-            $user_name,
-            $message_id)
-    {
-        $telegram = new telegram();
-        $telegram->sendMessage($chat_id, "در حال بروزرسانی است لطفا صبر کنید");
-       
-       
-    }
-
-    public function enable_disable($chat_id)
-    {
-        $telegram = new telegram();
-        $txtSendEnOrDi = "ربات در حال بروزرسانی است لطفا مدتی صبر کنید از صبر وشکیبایی شما متشکریم ";
-        $photoFileID = "AgACAgQAAxkBAAIWg2XqDhBhHEkAAaiE5CMbMaqZhlpUzwACFMQxG1xGUVNA42OrQDF6LgEAAwIAA3gAAzQE";
-        $telegram->sendPhoto($chat_id, $photoFileID, $txtSendEnOrDi);
-    }
-
-    public static function tarefe_gheymatha($user_id, $chat_id)
-    {
-        $telegram = new telegram();
-        $telegram->sendChatAction($chat_id, 'typing');
-        //--------------------query
-        $sqlUpdate = "UPDATE tbl_user SET step_user='Tarefe_Gheymatha' WHERE user_id='$user_id'";
-        $stmtUpdate = $telegram->db->prepare($sqlUpdate);
-        $stmtUpdate->execute();
-        //--------------------query
-        $msg = "<b>یکی از گزینه های زیر را انتخاب کنید </b>:" . "\n" . "\n" .
-            '<b>1- سرویس ssh </b>:' . 'سرویس پرسرعت ssh بدون محدودیت حجم بسیار ایمن و دارای محدودیت کاربر، قابلیت تعریف کاربر به تعداد دلخواه' . "\n" . "\n" . '<b>2-سرویس ویتوری </b>:' . 'اشتراک موشک ویتوری بسیار سریع، ایمن، بدون محدودیت کاربر و دارای محدودیت حجم، راه اندازی بسیار سریع و آسان، قابلیت تنظیم حجم و زمان به انتخاب کاربر' . "\n" . "\n"
-            . "===========📛📛==========" . "\n" . "\n" . "<b> 📛: در هر مرحله و به هر دلیلی ربات دچار هنگی شد مجدد گزینه خانه(🏘) در پایین را فشاردهید تا مجدد ربات راه اندازی شود و عملیات مورد نظر را انجام دهید </b>";
-        $keyboardHome = [
-            //            [['text' => "💣| سرویس v2ray"], ['text' => "🚀| سرویس ssh"]],
-            [['text' => "💣| سرویس v2ray"]],
-            [
-                //                ['text' => "🔙| بازگشت به مرحله قبل"],
-                ['text' => "🏘| خانه"]
-            ]
-        ];
-        $telegram->sendMessage2($chat_id, $msg, $keyboardHome);
-    }
-
-    public static function tarefe_gheymatha_shh($chat_id)
-    {
-        $telegram = new telegram();
-        $telegram->sendChatAction($chat_id, 'typing');
-        $telegram = new telegram();
-        $msg = "<b>با توجه به حجم و زمان مصرفی خودتان یک  مورد را انتخاب و با ادمین در ارتباط باشید </b>:" . "\n" . "\n" .
-            "<b>📣📣| یک ماهه</b>:" . "\n" .
-            "\n" . "تعداد کاربر       <pre></pre>" . "|" . "    حجم        " . "|" . "    قیمت        "
-            .
-            "\n" . "تک کاربره         " . "|" . "   نامحدود     " . "|" . "  110,000 تومان"
-            .
-            "\n" . "دو کاربره         " . "|" . "   نامحدود     " . "|" . " 130,000 تومان" . "\n" . "===================" . "\n" . "\n" .
-            "<b>📣📣| دو ماهه</b>:" . "\n" .
-            "\n" . "تعداد کاربر       <pre></pre>" . "|" . "    حجم        " . "|" . "    قیمت        "
-            .
-            "\n" . "تک کاربره         " . "|" . "   نامحدود     " . "|" . "  199,000 تومان"
-            .
-            "\n" . "دو کاربره         " . "|" . "   نامحدود     " . "|" . " 215,000 تومان" . "\n" . "===================" . "\n" . "\n" .
-            "<b>📣📣| سه ماهه</b>:" . "\n" .
-            "\n" . "تعداد کاربر       <pre></pre>" . "|" . "    حجم        " . "|" . "    قیمت        "
-            .
-            "\n" . "تک کاربره         " . "|" . "   نامحدود     " . "|" . "  299,000 تومان"
-            .
-            "\n" . "دو کاربره         " . "|" . "   نامحدود     " . "|" . " 315,000 تومان" . "\n" . "==================="
-
-            . "\n" . "\n"
-            . "===========📛📛==========" . "\n" . "\n" . "<b> 📛: در هر مرحله و به هر دلیلی ربات دچار هنگی شد مجدد گزینه خانه(🏘) در پایین را فشاردهید تا مجدد ربات راه اندازی شود و عملیات مورد نظر را انجام دهید </b>";
-        $keyboard = [
-            [['text' => "👨🏻‍💻| ارتباط با ادمین"]],
-            //            [['text' => "🔙| بازگشت به مرحله قبل"]],
-            [['text' => "🏘| خانه"]]
-        ];
-        $telegram->sendMessage2($chat_id, $msg, $keyboard);
-    }
-
-
-
-    public static function moshahede_amoozesha($chat_id)
-    {
-        $telegram = new telegram();
-        $telegram->sendChatAction($chat_id, 'typing');
-        $msg = "<b>برای مشاهده نصب و راه اندازی، سرویس مورد نظر خودرا انتخاب کنید  </b>:" . "\n" . "\n"
-            . "===========📛📛==========" . "\n" . "\n" . "<b> 📛: در هر مرحله و به هر دلیلی ربات دچار هنگی شد مجدد گزینه خانه(🏘) در پایین را فشاردهید تا مجدد ربات راه اندازی شود و عملیات مورد نظر را انجام دهید </b>";
-        $keyboardHome = [
-            [['text' => "💣| آموزش سرویس v2ray"]],
-            //            [['text' => "🚀| آموزش سرویس ssh"]],
-            [['text' => "🏘| خانه"]]
-
-        ];;
-        $telegram->sendMessage2($chat_id, $msg, $keyboardHome);
-    }
-
-    public static function amoozesh_service_ssh($chat_id)
-    {
-
-        $telegram = new telegram();
-        $telegram->sendChatAction($chat_id, 'typing');
-        $msg = "<b>لطفا سیستم عامل مورد نظر خود را انتخاب کنید </b>" . "\n" . '📞| به هر دلیلی در نصب و راه اندازی مشکل داشتید با ادمین در ارتباط باشید ' . "\n" . "\n"
-            . "===========📛📛==========" . "\n" . "\n" . "<b> 📛: در هر مرحله و به هر دلیلی ربات دچار هنگی شد مجدد گزینه خانه(🏘) در پایین را فشاردهید تا مجدد ربات راه اندازی شود و عملیات مورد نظر را انجام دهید </b>";
-        $keyboardHome = [
-            [['text' => "آموزش ssh اندروید"], ['text' => "آموزش ssh آیفون"]],
-            [['text' => "آموزش ssh ویندوز"], ['text' => "🏘| خانه"]]
-        ];
-        $telegram->sendMessage2($chat_id, $msg, $keyboardHome);
-
-        //-----------------------
-
-    }
-
-    public static function amoozesh_service_shh_android($chat_id)
-    {
-        $telegram = new telegram();
-        $telegram->sendChatAction($chat_id, 'typing');
-
-
-        $video_android = 'BAACAgQAAxkBAAKB72b8HPTGBPlMZAm0pg1SHSkcw8_XAALRGAACGDvhU4qRqE1Tz_W2NgQ';
-        //  $msg = "BAACAgQAAxkBAAIa2WUxLaSBV_ERl2AssFGptUCNRwrkAAJDDgAC4atxUmYj6Fy7bXCSMAQ";
-        //    $caption_android = $rows['caption_android'];
-        $caption_android = 'برای دانلود فایل هم به صورت مستقیم هم به صورت دانلود از استور گوگلی پلی روی دکمه های زیر کلیک کنید '
-            . "\n" . "\n"
-            . "===========📛📛==========" . "\n" . "\n" . "📛: در هر مرحله و به هر دلیلی ربات دچار هنگی شد مجدد گزینه خانه(🏘) در پایین را فشاردهید تا مجدد ربات راه اندازی شود و عملیات مورد نظر را انجام دهید ";
-        $keyboard = [
-            [['text' => '📎|دانلود از گوگل پلی ⏬ ', 'url' => 'https://play.google.com/store/apps/details?id=com.napsternetlabs.napsternetv']],
-            [['text' => ' 📎|دانلود به صورت مستقیم ⏬', 'url' => 'https://t.me/abzarvpn/114']]
-
-        ];
-
-        $telegram->sendAnimation($chat_id, $caption_android, $video_android, $keyboard);
-    }
-
-    public static function amoozesh_service_shh_iphone($chat_id)
-    {
-        $telegram = new telegram();
-        $telegram->sendChatAction($chat_id, 'typing');
-        $telegram = new telegram();
-
-        $video_iphone = 'BAACAgQAAxkBAAKCe2b8JPZFe0L5sXTRDdwAAeap3zCYqwAC_xgAAhg74VN0FrslqGC0kjYE';
-        $caption_iphone = 'برای دانلود فایل  ازآپ استور ایفون  روی دکمه  زیر کلیک کنید '
-            . "\n" . "\n"
-            . "===========📛📛==========" . "\n" . "\n" . "📛: در هر مرحله و به هر دلیلی ربات دچار هنگی شد مجدد گزینه خانه(🏘) در پایین را فشاردهید تا مجدد ربات راه اندازی شود و عملیات مورد نظر را انجام دهید ";
-        $keyboard = [
-            [['text' => '📎|دانلود از گوگل پلی ', 'url' => 'https://apps.apple.com/us/app/napsternetv/id1629465476']],
-
-        ];
-        $telegram->sendAnimation($chat_id, $caption_iphone, $video_iphone, $keyboard);
-    }
-
-    public static function amoozesh_service_shh_windows($chat_id)
-    {
-        $telegram = new telegram();
-        $telegram->sendChatAction($chat_id, 'typing');
-        $telegram = new telegram();
-
-        $video_widows = 'AAMCBAADGQEAAoHvZvwc9MYE-UxkCbSmDVIdKRzDz9cAAtEYAAIYO-FTipGoTVPP9bYBAAdtAAM2BA';
-        //$msg = "BAACAgQAAxkBAAIa2WUxLaSBV_ERl2AssFGptUCNRwrkAAJDDgAC4atxUmYj6Fy7bXCSMAQ";
-
-        $keyboard = [
-
-            [['text' => '🏘| خانه', 'callback_data' => 'homeLearning']]
-        ];
-        $telegram->sendAnimation($chat_id, "مطابق فایل بالا فایل را مشاهده کنید", $video_widows, $keyboard);
-    }
-
-    public static function amoozesh_service_v2ray($chat_id)
-    {
-        $telegram = new telegram();
-        $telegram->sendChatAction($chat_id, 'typing');
-        $msg = "<b>لطفا سیستم عامل مورد نظر خود را انتخاب کنید </b>" . "\n" . '📞| به هر دلیلی در نصب و راه اندازی مشکل داشتید با ادمین در ارتباط باشید ' . "\n" . "\n"
-            . "===========📛📛==========" . "\n" . "\n" . "<b> 📛: در هر مرحله و به هر دلیلی ربات دچار هنگی شد مجدد گزینه خانه(🏘) در پایین را فشاردهید تا مجدد ربات راه اندازی شود و عملیات مورد نظر را انجام دهید </b>";
-        $keyboardHome = [
-            [['text' => "آموزش v2ray اندروید"], ['text' => "آموزش v2ray آیفون"]],
-            [['text' => "آموزش v2ray ویندوز"], ['text' => "🏘| خانه"]]
-        ];
-        $telegram->sendMessage2($chat_id, $msg, $keyboardHome);
-    }
-
-    public static function amoozesh_service_v2ray_android($chat_id)
-    {
-        $telegram = new telegram();
-        $telegram->sendChatAction($chat_id, 'typing');
-        $telegram = new telegram();
-        $dlFile = 'https://t.me/abzarvpn/226';
-        $caption = '◀️ کانفیگ اختصاصی ارسال شده برای شما را مطابق تصویر بالا راه اندازی کنید' . "\n"
-            . "⏬ لینک دانلود نرم افزار(در پایین)" . "\n" . ".";
-        $photoFileId_1 = 'AgACAgQAAxkBAAJLQmbSDnQkzr-4qIgZTrjglaGrQqqEAALzvjEbSbGZUtbvXvNVxBRzAQADAgADeQADNQQ';
-
-        $keyboard = [
-            [['text' => 'دانلود نرم افزار|⏬', 'url' => 'https://t.me/abzarvpn/226']],
-
-        ];
-        $telegram->sendPhoto($chat_id, $photoFileId_1, $caption, $keyboard);
-    }
-
-    public static function amoozesh_service_v2ray_iphone($chat_id)
-    {
-        $telegram = new telegram();
-
-        $telegram->sendChatAction($chat_id, 'typing');
-        $telegram = new telegram();
-        $dlFile = 'https://t.me/abzarvpn/226';
-        $caption = '◀️ کانفیگ اختصاصی ارسال شده برای شما را مطابق تصویر بالا راه اندازی کنید' . "\n"
-            . "⏬ لینک دانلود نرم افزار(در پایین)" . "\n" . ".";
-        $photoFileId_1 = 'AgACAgQAAxkBAAJLQmbSDnQkzr-4qIgZTrjglaGrQqqEAALzvjEbSbGZUtbvXvNVxBRzAQADAgADeQADNQQ';
-
-        $keyboard = [
-            [['text' => 'دانلود نرم افزار|⏬', 'url' => 'https://apps.apple.com/us/app/v2box-v2ray-client/id6446814690']],
-
-        ];
-        $telegram->sendPhoto($chat_id, $photoFileId_1, $caption, $keyboard);
-    }
-
-
-
-    public static function voroudbe_panel_karbari($chat_id, $user_id)
-    {
-        $telegram = new telegram();
-
-        $telegram->sendChatAction($chat_id, 'typing');
-        //----------------------
-        $sqlUpdate = "UPDATE tbl_user SET step_user='Login_Panel' WHERE user_id='$user_id'";
-        $stmtUpdate = $telegram->db->prepare($sqlUpdate);
-        $stmtUpdate->execute();
-        //------------------------
-        //----------------------
-        $sql1 = "SELECT * FROM tbl_user WHERE user_id='$user_id'";
-        $stmt1 = $telegram->db->prepare($sql1);
-        $stmt1->execute();
-        $result_alog = $stmt1->fetch(PDO::FETCH_ASSOC);
-        //------------------------
-        if ($result_alog['already_login'] == '1') {
-
-            $msg = "📢 شما قبلاً ثبت نام کردید برای ورود به پنل کاربری خود گزینه زیر را انتخاب کنید|⬅️ ";
-            $keyboardLogin = [
-                [['text' => 'ورود مجدد به پنل کاربری|🔐', 'callback_data' => 'login_account']],
-
-            ];
-            $telegram->sendMessage($user_id, $msg, $keyboardLogin);
-        } else {
-            //----------------------
-            $sql2 = "UPDATE tbl_user SET step_user='Send_UserName' WHERE user_id='$user_id'";
-            $stmt2 = $telegram->db->prepare($sql2);
-            $stmt2->execute();
-            //------------------------
-            $msg = "برای ورود به پنل کاربری لازم است با استفاده از یوزر نیم و پسوردی که ادمین به شما داده لاگین کنید ";
-            $keyboard = [
-                //                [['text' => "بازگشت به مرحله قبل|🔙"]],
-                [['text' => '🏘| خانه']]
-            ];
-            $telegram->sendMessage2($chat_id, $msg, $keyboard);
-            $msgSendUsername = "لطفا نام کاربری(یوزر) خود را وارد کنید";
-            $telegram->forceReply($user_id, $msgSendUsername);
-        }
-    }
-
     public static function Display_user_account_information($user_id, $chat_id)
     {
         $telegram = new telegram();
@@ -405,263 +145,313 @@ class User
         $telegram->sendMessage2($chat_id, $msgSendMessage, $keyboardHome);
     }
 
-
-    public static function byNewInstance($user_id)
-    {
-        $telegram = new telegram();
-        $telegram->sendChatAction($user_id, 'typing');
-        //------------------------
-        $sql = "UPDATE tbl_user SET step_user='KharideEshterake_jadid', role='user'  WHERE user_id='$user_id'";
-        $stmt = $telegram->db->prepare($sql);
-        $stmt->execute();
-        //------------------------
-        $sql2 = "SELECT * FROM tbl_user WHERE user_id='$user_id'";
-        $stmt2 = $telegram->db->prepare($sql2);
-        $stmt2->execute();
-        $result = $stmt2->fetch(PDO::FETCH_ASSOC);
-        $txt = "موجودی کیف پول شما:" . " " . $result['col_wallet'] . ' ' . 'تومان' . "\n" . '.';
-        $keyboard = [
-            [['text' => 'خرید اشتراک v2ray', 'callback_data' => 'byV2rayAccount'], ['text' => 'خرید اشتراک SSH', 'callback_data' => 'bySSHAccount']]
-        ];
-        $telegram->sendMessage($user_id, $txt, $keyboard);
-    }
-
-    public static function byV2rayAccount($user_id, $message_id)
-    {
-
-        $telegram = new telegram();
-        $telegram->sendChatAction($user_id, 'typing');
-
-        //------------------------
-        $sql = "UPDATE tbl_user SET step_user='Kharide_Account_V2ray', role='user'  WHERE user_id='$user_id'";
-        $stmt = $telegram->db->prepare($sql);
-        $stmt->execute();
-        //------------------------
-
-        $txt = "لطفا یکی از پلن های زیر را انتخاب کنید" . "\n" . '.';
-        $keyboard = [
-
-            [['text' => '10 گیگ|یک ماهه', 'callback_data' => '1month10gb'], ['text' => '20 گیگ|یک ماهه', 'callback_data' => '1month20gb'], ['text' => '40 گیگ|یک ماهه', 'callback_data' => '1month40gb']],
-
-            [['text' => '30 گیگ|دو ماهه', 'callback_data' => '2month30gb'], ['text' => '60 گیگ|دو ماهه', 'callback_data' => '2month60gb'], ['text' => '90 گیگ|دو ماهه', 'callback_data' => '2month90gb']],
-
-            [['text' => '60 گیگ|سه ماهه', 'callback_data' => '3month60gb'], ['text' => '120 گیگ|سه ماهه', 'callback_data' => '3month120gb'], ['text' => '180 گیگ|سه ماهه', 'callback_data' => '3month180gb']],
-            [['text' => 'مدت زمان دلخواه', 'callback_data' => 'time_delkhah']]
-        ];
-
-
-        $telegram->editMessageText($user_id, $message_id, $txt, $keyboard);
-    }
-
-    public static function time_delkhah($user_id)
-    {
-        $telegram = new telegram();
-        $telegram->sendChatAction($user_id, 'typing');
-        //------------------------
-        $sql = "UPDATE tbl_user SET step_user='Time_Delkhah', role='user'  WHERE user_id='$user_id'";
-        $stmt = $telegram->db->prepare($sql);
-        $stmt->execute();
-        //------------------------
-        $txtMsg = "لطفا زمان را به صورت [عددی] وارد کنید " . "\n" . "به عنوان مثال: 30" . "\n" . ".";
-        $telegram->forceReply($user_id, $txtMsg);
-    }
-
     public static function sendMessageToAdmin($user_id)
     {
         $telegram = new telegram();
+
+        // نمایش وضعیت تایپ کردن
         $telegram->sendChatAction($user_id, 'typing');
-        //------------------------
-        $sql = "UPDATE tbl_user SET step_user='SendMessage_ToAdmin', role='user'  WHERE user_id='$user_id'";
+
+        // تغییر مرحله کاربر
+        $sql = "UPDATE tbl_user
+            SET step_user = 'SENDMESSAGE_TO_ADMIN',
+                role = 'user'
+            WHERE user_id = :user_id";
+
         $stmt = $telegram->db->prepare($sql);
-        $stmt->execute();
-        //------------------------
-        $msgtoadmin = "از طریق دکمه زیر می توانید به ادمین پیام دهید";
+
+        $stmt->execute([
+            ':user_id' => $user_id
+        ]);
+
+        // متن ارتباط با پشتیبانی
+        $msgtoadmin =
+            "👨🏻‍💻 <b>ارتباط با پشتیبانی بازار هوش</b>\n\n" .
+            "برای ارتباط مستقیم با پشتیبانی، از طریق دکمه زیر اقدام کنید.\n\n" .
+            "📩 آیدی پشتیبانی:\n" .
+            "<a href=\"https://t.me/AToluifar\">@AToluifar</a>\n\n" .
+            "✅ با کلیک روی آیدی بالا می‌توانید مستقیماً وارد گفتگوی پشتیبانی شوید.";
+
+        // دکمه شیشه‌ای ارتباط با ادمین
         $keyboard = [
             [
-                ['text' => '👨🏻‍💻| ارتباط با ادمین', 'url' => 'https://t.me/abzarvpn_admin1']
+                [
+                    'text' => '👨🏻‍💻 ارتباط با پشتیبانی',
+                    'url' => 'https://t.me/AToluifar'
+                ]
             ]
         ];
-        $telegram->sendMessage($user_id, $msgtoadmin, $keyboard);
+
+        // ارسال پیام
+        $telegram->sendMessage(
+            $user_id,
+            $msgtoadmin,
+            $keyboard
+        );
     }
 
-
-
-    public static function ComingToBot($chat_id, $user_id, $message_id)
-    {
-        $telegram = new telegram();
-        //------------------------------------
-        $sqlUpdate = "UPDATE tbl_user SET step_user='karbar_kharidar' WHERE user_id='$user_id' ";
-        $stmtUpdate = $telegram->db->prepare($sqlUpdate);
-        $stmtUpdate->execute();
-        //------------------------------------
-        $msgSendMessage = "<b>یکی از گزینه های زیر را انتخاب کنید </b>:" . "\n" . "<b> 1- ورود به پنل کاربری :</b>" .
-            " پس از خرید اکانت و دریافت یوزرنیم و پسورد با انتخاب این گزینه می توانید وارد پنل کاربری خودتان شوید. پنل کاربری شامل( مشاهده حجم، زمان، مشخصات اکانت، تمدید، ورود به حساب دیگر و.. ) می باشد " . "\n" . "\n" . "<b>2-مشاهده آموزش ها:</b>" . " با انتخاب این گزینه آموزش نصب و فعالسازی سرویس ها به شما نشان داده خواهد شد." . "\n" . "\n" . "<b>3-تعرفه قیمت ها:</b>" . "تعرفه قیمت های سرویس ها را میتوانید با انتخاب این گزینه مشاهده کنید" . "\n" . "\n"
-            . "===========📛📛==========" . "\n" . "\n" . "<b> 📛: در هر مرحله و به هر دلیلی ربات دچار هنگی شد مجدد گزینه خانه(🏘)در پایین را فشاردهید تا مجدد ربات راه اندازی شود و عملیات مورد نظر را انجام دهید </b>";
-        $keyboardHome = [
-            //            [['text' => "🔑| ورود به پنل کاربری"], ['text' => "🔑| ارسال کد اختصاصی [جهت اطلاع رسانی اتمام حجم و زمان]"]],
-            [['text' => 'اطلاع از ترافیک مصرفی']],
-            [['text' => "👨🏻‍💻| ارتباط با ادمین"], ['text' => "💰| تعرفه قیمت ها"]],
-            [['text' => "👨‍🏫| مشاهده آموزش ها"], ['text' => "💎| خرید تلگرام پرمیوم"]],
-            [
-                //            ['text' => "🔙| بازگشت به مرحله قبل"],
-                ['text' => "🏘| خانه"]
-            ],
-        ];
-        $telegram->sendMessage2($chat_id, $msgSendMessage, $keyboardHome);
-    }
 
     public static function Index($user_id, $message_id)
     {
         $telegram = new telegram();
-        //------------------------
-        $sql = "SELECT * FROM tbl_user";
+
+        // ====================================
+        // دریافت اطلاعات کاربر
+        // ====================================
+
+        $sql = "SELECT * FROM tbl_user
+            WHERE user_id = :user_id
+            LIMIT 1";
+
         $stmt = $telegram->db->prepare($sql);
-        $stmt->execute();
-        $numOfUserInDb = $stmt->rowCount();
-        $numOfUserInDb = $numOfUserInDb + 1000;
-        //        $numberOfUser = '<b>' . '💎 تعداد کاربران فعال ربات:' . '</b>' . '<u>' . $numOfUserInDb . '</u>' . " کاربر " . "\n";
-        //----------------------------
-        $sqlSelect = "SELECT *  FROM tbl_user WHERE user_id='$user_id'";
-        $stmt = $telegram->db->prepare($sqlSelect);
-        $stmt->execute();
+
+        $stmt->execute([
+            ':user_id' => $user_id
+        ]);
+
         $result_start = $stmt->fetch(PDO::FETCH_ASSOC);
-        $numberOfUserBot = $stmt->rowCount();
 
-        if ($result_start['message_coming'] === '0') {
-            $txtStartBotUses = "<u>" . "📣 گزارش ورود کاربر جدید به ربات" . '</u>' . "\n" . "◀️ کاربر " . $result_start['first_name'] . " ربات را استارت کرد " . "\n" . "⏱ ساعت و زمان ورد به ربات:" . jdate("Y/n/j-H:i:s ") . "\n" . '<b>' . "📌 مشخصات کاربر" . '</b>' . "\n" . "🔹 نام کاربر: " . $result_start['first_name'] . "\n" . "🔹 نام خانوادگی: " . $result_start['last_name'] . "\n" . "🔹 یوزر آیدی : " . '<code>' . $result_start['user_id'] . '</code>' . "\n" . "🔹آیدی کاربر: " . '<code>' . $result_start['id'] . '</code>' . "\n" . "🔹 یوزر نیم تلگرام: " . $result_start['username_telegram'] . "\n" . ".";
-            $keyboard =
+        if (!$result_start) {
+            return;
+        }
+
+        // ====================================
+        // گزارش اولین ورود به ادمین
+        // ====================================
+
+        if ($result_start['message_coming'] == '0') {
+
+            $first_name = htmlspecialchars(
+                $result_start['first_name'] ?? '',
+                ENT_QUOTES,
+                'UTF-8'
+            );
+
+            $last_name = htmlspecialchars(
+                $result_start['last_name'] ?? '',
+                ENT_QUOTES,
+                'UTF-8'
+            );
+
+            $username = htmlspecialchars(
+                $result_start['username_telegram'] ?? '',
+                ENT_QUOTES,
+                'UTF-8'
+            );
+
+            $txtStartBotUses =
+                "<u>📣 گزارش ورود کاربر جدید به ربات</u>\n\n" .
+                "◀️ کاربر " . $first_name . " وارد ربات شد.\n\n" .
+                "⏱ تاریخ ورود: " . jdate("Y/n/j-H:i:s") . "\n\n" .
+                "<b>📌 مشخصات کاربر</b>\n\n" .
+                "🔹 نام: " . $first_name . "\n" .
+                "🔹 نام خانوادگی: " . $last_name . "\n" .
+                "🔹 شناسه تلگرام: <code>" . $result_start['user_id'] . "</code>\n" .
+                "🔹 شناسه دیتابیس: <code>" . $result_start['id'] . "</code>\n" .
+                "🔹 نام کاربری: " . $username;
+
+            // دکمه‌های گزارش ادمین
+            // این دکمه‌ها همچنان شیشه‌ای هستند
+            $admin_keyboard = [
                 [
-                    [['text' => 'مسدود کردن کاربر', 'callback_data' => 'masdudkardn_karbar'], ['text' => 'ارسال پیام خوش آمدید', 'callback_data' => 'sendMsgWelcomeUser']]
-                ];
-            $telegram->sendMessage(adminChatIDMain, $txtStartBotUses, $keyboard);
-            //------------------------
-            $sqlUpdate = "UPDATE tbl_user SET message_coming='1' WHERE user_id='$user_id' ";
-            $stmtUpdate = $telegram->db->prepare($sqlUpdate);
-            $stmtUpdate->execute();
-            //------------------------
-
-        }
-        if (($result_start['step_user'] === 'FirstStartBot') and ($result_start['register_user'] === '0')) {
-            $msg = "✏️ لطفا یکی از گزینه های زیر را انتخاب کنید" . "\n"
-                . "⚠️ در هر مرحله از ربات با استفاده از گزینه منو در سمت چپ پایین می توانید ربات را مجدد استارت کنید " . "\n" . "\n" . '<code>' . "version:1.1.0" . '</code>';
-            $keyboard = [
-                [['text' => 'پنل خریداران|👤', 'callback_data' => 'panele_kharidar']],
-                [['text' => 'پنل همکاران فروش|👥', 'callback_data' => 'hamkaranFroush']],
-                [['text' => 'ارتباط با ادمین|👨🏻‍💻‍', 'url' => 'https://t.me/abzarvpn_admin1']]
+                    [
+                        'text' => 'مسدود کردن کاربر',
+                        'callback_data' => 'masdudkardn_karbar'
+                    ],
+                    [
+                        'text' => 'ارسال پیام خوش آمدید',
+                        'callback_data' => 'sendMsgWelcomeUser'
+                    ]
+                ]
             ];
-            $telegram->editMessageText($user_id, $message_id, $msg, $keyboard);
-            //------------------------
-            $sqlUpdate = "UPDATE tbl_user SET register_user='1' WHERE user_id='$user_id' ";
-            $stmtUpdate = $telegram->db->prepare($sqlUpdate);
-            $stmtUpdate->execute();
-            //------------------------
-        } else {
 
+            // ارسال گزارش به ادمین
+            $result_admin = $telegram->sendMessage(
+                adminChatIDMain,
+                $txtStartBotUses,
+                $admin_keyboard
+            );
 
-            $msg = "✏️ لطفا یکی از گزینه های زیر را انتخاب کنید" . "\n"
-                . "⚠️ در هر مرحله از ربات با استفاده از گزینه منو در سمت چپ پایین می توانید ربات را مجدد استارت کنید " . "\n" . "\n" . '<code>' . "version:1.1.0" . '</code>';
+            // ثبت ارسال گزارش
+            if (isset($result_admin->ok) && $result_admin->ok === true) {
 
-            $keyboard = [
-                [['text' => 'پنل خریداران|👤', 'callback_data' => 'panele_kharidar']],
-                [['text' => 'پنل همکاران فروش|👥', 'callback_data' => 'hamkaranFroush']],
-                [['text' => 'ارتباط با ادمین|👨🏻‍💻‍', 'url' => 'https://t.me/abzarvpn_admin1']]
-            ];
-            $telegram->sendMessage($user_id, $msg, $keyboard);
+                $sql = "UPDATE tbl_user
+                    SET message_coming = '1'
+                    WHERE user_id = :user_id";
+
+                $stmt = $telegram->db->prepare($sql);
+
+                $stmt->execute([
+                    ':user_id' => $user_id
+                ]);
+            }
         }
-        //----------------------------
 
-    }
+        // ====================================
+        // متن منوی اصلی
+        // ====================================
 
+        $msg = "<b>🏠 منوی اصلی فروشگاه بازار هوش</b>\n\n" .
+            "👋 به فروشگاه بازار هوش خوش آمدید.\n\n" .
+            "برای استفاده از خدمات فروشگاه، لطفاً یکی از گزینه‌های زیر را انتخاب کنید.\n\n" .
+            "✨ اینجا تکنولوژی فردا را آسان بخر";
 
+        // ====================================
+        // کیبورد معمولی منوی اصلی
+        // ====================================
 
-    
+        $keyboard = [
 
-public static function DisplayStart($user_id, $chat_id, $first_name, $last_name, $user_name)
-{
-    $telegram = new telegram();
-
-    // ====================================
-    // تصویر خوشامدگویی
-    // ====================================
-
-    $photo = 'AgACAgQAAxkBAAIC42rRHJMwWH9QcZhogQwuxGHXsR8xAAKVEWsbw0CRUjBECwvHFy4WAQADAgADeQADPQQ';
-
-    // ====================================
-    // متن خوشامدگویی
-    // ====================================
-
-    $msg = "<b>سلام. به فروشگاه بازار هوش خوش آمدید.</b> 👋\n\n" .
-
-        "اینجا گسترده‌ترین مرجع تخصصی خرید اکانت پریمیوم ابزارهای هوش‌مصنوعی و پلتفرم های خارجی با رقابتی‌ترین قیمت است. ✨\n\n" .
-
-        "<b>گوشه‌ای از ویژگی‌های فروشگاه بازار هوش:</b>\n" .
-
-        "✅ اشتراک‌های اورجینال و معتبر ⭐️\n" .
-        "✅ تحویل در سریع‌ترین زمان ممکن ⚡️\n" .
-        "✅ گارانتی‌ با بازه زمانی مناسب 👑\n" .
-        "✅ قیمت رقابتی خدمات 💵\n" .
-        "✅ پشتیبانی کامل و سریع 24/7 ⏱️\n\n" .
-
-        "<b>فروشگاه بازار هوش از ابتدا تا الان یک شعار داشته:</b>\n\n" .
-
-        "<b>«اینجا تکنولوژی فردا را آسان بخر»</b>";
-
-    // ====================================
-    // دکمه ورود به ربات
-    // ====================================
-
-    $keyboard = [
-        [
+            // ردیف اول: فروشگاه و محصولات
             [
-                'text' => 'ورود به ربات |📲',
-                'callback_data' => 'FirstComingToBot'
+                ['text' => '🛍 فروشگاه و محصولات']
+            ],
+
+            // ردیف دوم: اکانت‌های تست و سفارشات
+            [
+                ['text' => '🧪 اکانت‌های تست'],
+                ['text' => '📦 سفارشات']
+            ],
+
+            // ردیف سوم: پروفایل و دعوت دوستان
+            [
+                ['text' => '👤 پروفایل و حساب کاربری'],
+                ['text' => '🎁 دعوت و معرفی به دوستان']
+            ],
+
+            // ردیف چهارم: پشتیبانی
+            [
+                ['text' => '🎧 پشتیبانی و ثبت تیکت']
+            ],
+
+            // ردیف پنجم: دستیار هوشمند و مخزن پرامپت
+            [
+                ['text' => '🤖 دستیار هوشمند'],
+                ['text' => '📝 مخزن پرامپت']
+            ],
+
+            // ردیف ششم: انتخاب زبان
+            [
+                ['text' => '🌐 زبان']
+            ],
+            [
+                ['text' => '🏘 خانه']
             ]
-        ]
-    ];
+        ];
 
-    // ====================================
-    // ارسال عکس و ثبت وضعیت
-    // ====================================
+        // ====================================
+        // ارسال منوی اصلی با کیبورد معمولی
+        // ====================================
 
-    try {
-
-        // ارسال تصویر همراه متن و دکمه
-        $result = $telegram->sendPhoto(
-            $chat_id,
-            $photo,
+        $result = $telegram->sendMessage2(
+            $user_id,
             $msg,
             $keyboard
         );
 
-        // بررسی موفقیت ارسال عکس
+        // ====================================
+        // بروزرسانی وضعیت ثبت‌نام
+        // ====================================
+
         if (isset($result->ok) && $result->ok === true) {
 
-            // تغییر وضعیت خوشامدگویی به 1
-            $sql = "UPDATE tbl_user
+            if ($result_start['register_user'] == '0') {
+
+                $sql = "UPDATE tbl_user
+                    SET register_user = '1'
+                    WHERE user_id = :user_id";
+
+                $stmt = $telegram->db->prepare($sql);
+
+                $stmt->execute([
+                    ':user_id' => $user_id
+                ]);
+            }
+        }
+    }
+
+    public static function DisplayStart($user_id, $chat_id, $first_name, $last_name, $user_name)
+    {
+        $telegram = new telegram();
+
+        // ====================================
+        // تصویر خوشامدگویی
+        // ====================================
+
+        $photo = 'AgACAgQAAxkBAAIC42rRHJMwWH9QcZhogQwuxGHXsR8xAAKVEWsbw0CRUjBECwvHFy4WAQADAgADeQADPQQ';
+
+        // ====================================
+        // متن خوشامدگویی
+        // ====================================
+
+        $msg = "<b>سلام. به فروشگاه بازار هوش خوش آمدید.</b> 👋\n\n" .
+
+            "اینجا گسترده‌ترین مرجع تخصصی خرید اکانت پریمیوم ابزارهای هوش‌مصنوعی و پلتفرم های خارجی با رقابتی‌ترین قیمت است. ✨\n\n" .
+
+            "<b>گوشه‌ای از ویژگی‌های فروشگاه بازار هوش:</b>\n" .
+
+            "✅ اشتراک‌های اورجینال و معتبر ⭐️\n" .
+            "✅ تحویل در سریع‌ترین زمان ممکن ⚡️\n" .
+            "✅ گارانتی‌ با بازه زمانی مناسب 👑\n" .
+            "✅ قیمت رقابتی خدمات 💵\n" .
+            "✅ پشتیبانی کامل و سریع 24/7 ⏱️\n\n" .
+
+            "<b>فروشگاه بازار هوش از ابتدا تا الان یک شعار داشته:</b>\n\n" .
+
+            "<b>«اینجا تکنولوژی فردا را آسان بخر»</b>";
+
+        // ====================================
+        // دکمه ورود به ربات
+        // ====================================
+
+        $keyboard = [
+            [
+                [
+                    'text' => 'ورود به ربات |📲',
+                    'callback_data' => 'FirstComingToBot'
+                ]
+            ]
+        ];
+
+        // ====================================
+        // ارسال عکس و ثبت وضعیت
+        // ====================================
+
+        try {
+
+            // ارسال تصویر همراه متن و دکمه
+            $result = $telegram->sendPhoto(
+                $chat_id,
+                $photo,
+                $msg,
+                $keyboard
+            );
+
+            // بررسی موفقیت ارسال عکس
+            if (isset($result->ok) && $result->ok === true) {
+
+                // تغییر وضعیت خوشامدگویی به 1
+                $sql = "UPDATE tbl_user
                     SET welcome_shown = 1
                     WHERE user_id = :user_id
                     AND welcome_shown = 0";
 
-            $stmt = $telegram->db->prepare($sql);
+                $stmt = $telegram->db->prepare($sql);
 
-            $stmt->execute([
-                ':user_id' => $user_id
-            ]);
+                $stmt->execute([
+                    ':user_id' => $user_id
+                ]);
 
-            return true;
+                return true;
+            }
+        } catch (Exception $e) {
+
+            // ثبت خطا در لاگ سرور
+            error_log(
+                "DisplayStart Error: " . $e->getMessage()
+            );
         }
 
-    } catch (Exception $e) {
-
-        // ثبت خطا در لاگ سرور
-        error_log(
-            "DisplayStart Error: " . $e->getMessage()
-        );
-
+        return false;
     }
-
-    return false;
-}
-
-
 }
