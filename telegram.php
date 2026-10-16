@@ -1,496 +1,231 @@
 <?php
+//require_once "index.php";
+//require_once "config.php";
+//require_once "userFunctions.php";
+//require_once "addminFunctions.php";
+//require_once "jdf.php";
+//require_once "endTimeAccoutnUsers_Cronjob.php";
 
-require_once __DIR__ . '/config.php';
 
 class telegram
 {
     public $db;
-    public $name = null;
+    public $name;
+    public $dbname ='bazareho_mrkgviph_sample_1';
+    public $dbuser ='bazareho_mrkgviph_sample_1';
+    public $dbpass ='dwt~%}_Yz-N4LZo$';
 
-    // برای سازگاری با کدهای قدیمی
-    public static $isTested = false;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
-        $this->connectDatabase();
-    }
-
-    /**
-     * اتصال به دیتابیس
-     */
-    private function connectDatabase()
-    {
+        $data = json_decode(file_get_contents("php://input"));
+        $chatid = $data->message->chat->id;
         try {
-            $dsn = "mysql:host=" . DB_HOST .
-                   ";dbname=" . DB_NAME .
-                   ";charset=utf8mb4";
-
-            $this->db = new PDO(
-                $dsn,
-                DB_USER,
-                DB_PASS,
-                [
-                    PDO::ATTR_ERRMODE =>
-                        PDO::ERRMODE_EXCEPTION,
-
-                    PDO::ATTR_DEFAULT_FETCH_MODE =>
-                        PDO::FETCH_ASSOC,
-
-                    PDO::ATTR_EMULATE_PREPARES =>
-                        false
-                ]
-            );
-
+            $this->db = new PDO('mysql:host=localhost;dbname=' .$this->dbname, $this->dbuser, $this->dbpass, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES "utf8mb4"'));
         } catch (PDOException $e) {
-
-            error_log(
-                "[DATABASE ERROR] " . $e->getMessage()
-            );
-
-            throw new RuntimeException(
-                "Database connection failed.",
-                0,
-                $e
-            );
+            $this->excCurl(apiUrl . 'sendMessage', [
+                'chat_id' => $chatid,
+                'text' => "خطا در برقراری ارتباط با پایگاه داده" . $e->getMessage()
+            ]);
         }
     }
 
-    /**
-     * دریافت IP کلاینت
-     */
+    // تابع بدست آوردن ای پی کلاینت
     public function get_client_ip()
     {
-        $ip = $_SERVER['REMOTE_ADDR'] ?? null;
-
-        if ($ip && filter_var(
-            $ip,
-            FILTER_VALIDATE_IP
-        )) {
-            return $ip;
-        }
-
-        return 'UNKNOWN';
+        $ipaddress = '';
+        if (isset($_SERVER['HTTP_CLIENT_IP']))
+            $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+        else if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        else if (isset($_SERVER['HTTP_X_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+        else if (isset($_SERVER['HTTP_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+        else if (isset($_SERVER['HTTP_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED'];
+        else if (isset($_SERVER['REMOTE_ADDR']))
+            $ipaddress = $_SERVER['REMOTE_ADDR'];
+        else
+            $ipaddress = 'UNKNOWN';
+        return $ipaddress;
     }
 
-    /**
-     * ساخت کیبورد شیشه‌ای
-     */
+    //echo "Your IP address is: " . get_client_ip();
+
+    public function sendMessage($chat_id, $text, $keyboard = null)
+    {
+        $fileds = [
+            'chat_id' => $chat_id,
+            'text' => $text,
+            'parse_mode'=>"HTML"
+
+
+        ];
+        if ($keyboard != null) {
+
+            $fileds['reply_markup'] = $this->makeInlineButton($keyboard);
+        }
+        return $this->excCurl(apiUrl . 'sendMessage', $fileds);
+    }
+
     public function makeInlineButton($keyboard)
     {
-        return $this->encodeJson([
-            'inline_keyboard' => $keyboard
-        ]);
+        $keyboard = ['inline_keyboard' => $keyboard];
+        return json_encode($keyboard);
     }
 
-    /**
-     * تبدیل آرایه به JSON
-     */
-    private function encodeJson($data)
+    public function getChatMember($chat_id, $user_id)
     {
-        $json = json_encode(
-            $data,
-            JSON_UNESCAPED_UNICODE |
-            JSON_UNESCAPED_SLASHES
-        );
-
-        if ($json === false) {
-            throw new RuntimeException(
-                'JSON Encode Error: ' .
-                json_last_error_msg()
-            );
-        }
-
-        return $json;
-    }
-
-    /**
-     * ارسال درخواست به Telegram Bot API
-     */
-    private function request($method, $fields = [])
-    {
-        return $this->excCurl(
-            apiUrl . $method,
-            $fields
-        );
-    }
-
-    /**
-     * اضافه کردن کیبورد شیشه‌ای
-     */
-    private function withInlineKeyboard(
-        $fields,
-        $keyboard
-    ) {
-        if ($keyboard !== null) {
-            $fields['reply_markup'] =
-                $this->makeInlineButton($keyboard);
-        }
-
-        return $fields;
-    }
-
-    /**
-     * ارسال پیام
-     */
-    public function sendMessage(
-        $chat_id,
-        $text,
-        $keyboard = null
-    ) {
         $fields = [
             'chat_id' => $chat_id,
-            'text' => $text,
-            'parse_mode' => 'HTML'
+            'user_id' => $user_id
         ];
-
-        $fields = $this->withInlineKeyboard(
-            $fields,
-            $keyboard
-        );
-
-        return $this->request(
-            'sendMessage',
-            $fields
-        );
+        $getChat = ($this->excCurl(apiUrl . 'getChatMember', $fields));
+        return $getChat->result->status;
     }
 
-    /**
-     * ارسال پیام با کیبورد معمولی
-     */
-    public function sendMessage2(
-        $chat_id,
-        $text,
-        $keyboard = null
-    ) {
+    public function getChatMemberCount($chat_id)
+    {
         $fields = [
-            'chat_id' => $chat_id,
-            'text' => $text,
-            'parse_mode' => 'HTML'
+            'chat_id' => $chat_id
         ];
-
-        if ($keyboard !== null) {
-
-            $fields['reply_markup'] =
-                $this->encodeJson([
-                    'keyboard' => $keyboard,
-                    'resize_keyboard' => true,
-                    'one_time_keyboard' => false,
-                    'selective' => false
-                ]);
-        }
-
-        return $this->request(
-            'sendMessage',
-            $fields
-        );
+        $getChatMemberCount = $this->excCurl(apiUrl . 'getChatMemberCount', $fields);
+        return $getChatMemberCount->result;
     }
 
-    /**
-     * ویرایش پیام
-     */
-    public function editMessageText(
-        $chat_id,
-        $message_id,
-        $text,
-        $keyboard = null
-    ) {
-        $fields = [
+    public function answerCallbackQuery($callback_query_id, $text, $show_alert)
+    {
+        $fileds = [
+            'callback_query_id' => $callback_query_id,
+            'text' => $text,
+            'parse_mode'=>"HTML",
+            'show_alert' => $show_alert
+        ];
+        return $this->excCurl(apiUrl . 'answerCallbackQuery', $fileds);
+    }
+
+    public function editMessageText($chat_id, $message_id, $text, $keyboard = null)
+    {
+        $fileds = [
             'chat_id' => $chat_id,
             'message_id' => $message_id,
             'text' => $text,
-            'parse_mode' => 'HTML'
+            'parse_mode'=>"HTML"
         ];
-
-        $fields = $this->withInlineKeyboard(
-            $fields,
-            $keyboard
-        );
-
-        return $this->request(
-            'editMessageText',
-            $fields
-        );
+        if ($keyboard != null) {
+            $fileds['reply_markup'] = $this->makeInlineButton($keyboard);
+        }
+        return $this->excCurl(apiUrl . 'editMessageText', $fileds);
     }
 
-    /**
-     * حذف پیام
-     */
-    public function deleteMessage(
-        $chat_id,
-        $message_id
-    ) {
-        return $this->request(
-            'deleteMessage',
-            [
-                'chat_id' => $chat_id,
-                'message_id' => $message_id
-            ]
-        );
+    public function deleteMessage($chat_id, $message_id)
+    {
+        $fileds = [
+            'chat_id' => $chat_id,
+            'message_id' => $message_id
+        ];
+        return $this->excCurl(apiUrl . 'deleteMessage', $fileds);
     }
 
-    /**
-     * ارسال تصویر
-     */
-    public function sendPhoto(
-        $chat_id,
-        $photoFileID,
-        $caption,
-        $keyboard = null
-    ) {
+    public function sendPhoto($chat_id, $photoFileID, $caption,$keyboard=null)
+    {
         $fields = [
             'chat_id' => $chat_id,
             'photo' => $photoFileID,
             'caption' => $caption,
-            'parse_mode' => 'HTML'
+            'parse_mode'=>"HTML"
         ];
-
-        $fields = $this->withInlineKeyboard(
-            $fields,
-            $keyboard
-        );
-
-        return $this->request(
-            'sendPhoto',
-            $fields
-        );
+        if ($keyboard != null){
+            $fields['reply_markup'] = $this->makeInlineButton($keyboard);
+        }
+        return $this->excCurl(apiUrl . 'sendPhoto', $fields);
     }
 
-    /**
-     * ارسال انیمیشن
-     */
-    public function sendAnimation(
-        $chat_id,
-        $caption,
-        $fileIDAnimation,
-        $keyboard = null
-    ) {
+    public function sendChatAction($chat_id, $action)
+    {
+        $fileds = [
+            'chat_id' => $chat_id,
+            'action' => $action
+        ];
+        return $this->excCurl(apiUrl . 'sendChatAction', $fileds);
+    }
+
+    public function sendAnimation($chat_id, $caption,$fileIDAnimation,$keyboard=null)
+    {
         $fields = [
             'chat_id' => $chat_id,
             'animation' => $fileIDAnimation,
-            'caption' => $caption
+            'caption'=>$caption
+
         ];
-
-        $fields = $this->withInlineKeyboard(
-            $fields,
-            $keyboard
-        );
-
-        return $this->request(
-            'sendAnimation',
-            $fields
-        );
+        if ($keyboard != null){
+            $fields['reply_markup'] = $this->makeInlineButton($keyboard);
+        }
+        return $this->excCurl(apiUrl . 'sendAnimation', $fields);
     }
 
-    /**
-     * ارسال وضعیت فعالیت
-     */
-    public function sendChatAction(
-        $chat_id,
-        $action
-    ) {
-        return $this->request(
-            'sendChatAction',
-            [
-                'chat_id' => $chat_id,
-                'action' => $action
-            ]
-        );
-    }
-
-    /**
-     * بررسی وضعیت عضویت کاربر
-     */
-    public function getChatMember(
-        $chat_id,
-        $user_id
-    ) {
-        $response = $this->request(
-            'getChatMember',
-            [
-                'chat_id' => $chat_id,
-                'user_id' => $user_id
-            ]
-        );
-
-        return $response->result->status ?? null;
-    }
-
-    /**
-     * دریافت تعداد اعضای کانال یا گروه
-     */
-    public function getChatMemberCount($chat_id)
+    public function replyKeyboardRemove($chat_id, $text)
     {
-        $response = $this->request(
-            'getChatMemberCount',
-            [
-                'chat_id' => $chat_id
-            ]
-        );
-
-        return $response->result ?? null;
+        $fileds = [
+            'chat_id' => $chat_id,
+            'text' => $text,
+            'reply_markup' => json_encode([
+                'remove_keyboard' => true,
+                'selective' => true
+            ])
+        ];
+        return $this->excCurl(apiUrl . 'sendMessage', $fileds);
     }
 
-    /**
-     * پاسخ به Callback Query
-     */
-    public function answerCallbackQuery(
-        $callback_query_id,
-        $text,
-        $show_alert = false
-    ) {
-        return $this->request(
-            'answerCallbackQuery',
-            [
-                'callback_query_id' =>
-                    $callback_query_id,
 
-                'text' => $text,
+    public function sendMessage2($chat_id, $text, $keyboard = null)
+    {
+        $fileds = [
+            'chat_id' => $chat_id,
+            'text' => $text,
+            'parse_mode'=>"HTML"
+        ];
+        if ($keyboard != null) {
+            $fileds['reply_markup'] = json_encode([
+                'keyboard' => $keyboard,
+                'resize_keyboard' => true,
+                'one_time_keyboard' => false,
+                'selective' => false
 
-                'show_alert' =>
-                    $show_alert ? 'true' : 'false'
-            ]
-        );
-    }
 
-    /**
-     * حذف کیبورد معمولی
-     */
-    public function replyKeyboardRemove(
-        $chat_id,
-        $text
-    ) {
-        return $this->request(
-            'sendMessage',
-            [
-                'chat_id' => $chat_id,
-                'text' => $text,
-
-                'reply_markup' =>
-                    $this->encodeJson([
-                        'remove_keyboard' => true,
-                        'selective' => true
-                    ])
-            ]
-        );
-    }
-
-    /**
-     * دریافت پاسخ مستقیم از کاربر
-     */
-    public function forceReply(
-        $chat_id,
-        $text
-    ) {
-        return $this->request(
-            'sendMessage',
-            [
-                'chat_id' => $chat_id,
-                'text' => $text,
-                'parse_mode' => 'HTML',
-
-                'reply_markup' =>
-                    $this->encodeJson([
-                        'force_reply' => true,
-                        'selective' => true
-                    ])
-            ]
-        );
-    }
-
-    /**
-     * اجرای درخواست cURL
-     */
-    public function excCurl(
-        $url,
-        $fields = []
-    ) {
-        $ch = curl_init();
-
-        if ($ch === false) {
-            throw new RuntimeException(
-                'Unable to initialize cURL.'
-            );
-        }
-
-        try {
-
-            curl_setopt_array($ch, [
-                CURLOPT_URL => $url,
-                CURLOPT_POST => true,
-
-                CURLOPT_POSTFIELDS =>
-                    http_build_query($fields),
-
-                CURLOPT_RETURNTRANSFER => true,
-
-                CURLOPT_CONNECTTIMEOUT => 5,
-                CURLOPT_TIMEOUT => 20,
-
-                CURLOPT_SSL_VERIFYPEER => true,
-                CURLOPT_SSL_VERIFYHOST => 2
             ]);
-
-            $content = curl_exec($ch);
-
-            $curlError = curl_error($ch);
-
-            $httpCode = curl_getinfo(
-                $ch,
-                CURLINFO_HTTP_CODE
-            );
-
-        } finally {
-            curl_close($ch);
         }
 
-        if ($content === false) {
 
-            error_log(
-                '[CURL ERROR] ' . $curlError
-            );
+        return $this->excCurl(apiUrl . 'sendMessage', $fileds);
 
-            throw new RuntimeException(
-                'Telegram connection failed: ' .
-                $curlError
-            );
-        }
+    }
 
-        $response = json_decode($content);
 
-        if (
-            json_last_error() !== JSON_ERROR_NONE ||
-            !is_object($response)
-        ) {
-            throw new RuntimeException(
-                'Invalid Telegram API response.'
-            );
-        }
+    public function forceReply($chat_id, $text)
+    {
+        $fileds = [
+            'chat_id' => $chat_id,
+            'text' => $text,
+            'reply_markup' => json_encode([
+                'force_reply' => true,
+                'selective' => true,
+                'parse_mode'=>"HTML",
+            ])
+        ];
+        return $this->excCurl(apiUrl . 'sendMessage', $fileds);
+    }
 
-        if (
-            $httpCode < 200 ||
-            $httpCode >= 300 ||
-            !isset($response->ok) ||
-            $response->ok !== true
-        ) {
-            $description =
-                $response->description ??
-                'Unknown API error';
 
-            error_log(
-                '[TELEGRAM API ERROR] HTTP ' .
-                $httpCode . ': ' . $description
-            );
-
-            throw new RuntimeException(
-                'Telegram API Error: ' .
-                $description,
-                (int) ($response->error_code ?? 0)
-            );
-        }
-
-        return $response;
+    public function excCurl($url, $fields = [])
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($fields));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $content = curl_exec($ch);
+        curl_close($ch);
+        return json_decode($content);
     }
 }

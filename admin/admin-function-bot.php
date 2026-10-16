@@ -27,10 +27,50 @@ class Admin
     }
 
     //-----------------------------------------------------
- 
+    public static function tarife_account($user_id)
+    {
+        $telegram = new telegram();
+        $telegram->sendChatAction($user_id, 'typing');
+        //---------------------
+        $sqldelete = "DELETE  FROM tbl_admin WHERE col_recive_data_ssh = '0'";
+        $stmtDelete = $telegram->db->prepare($sqldelete);
+        $stmtDelete->execute();
+        //----------------------
+        $sqlUpdate = "UPDATE tbl_user SET step_user='tarife_account' , role='admin' WHERE user_id='$user_id'";
+        $stmtUpdate = $telegram->db->prepare($sqlUpdate);
+        $stmtUpdate->execute();
+        //----------------------
+        $telegram->sendChatAction($user_id, 'typing');
+        $msgSendMessage = "یک گزینه را انتخاب کنید";
+        $keyboardHome = [
+            [['text' => "📝| تعریف اکانت [V2RAY]"], ['text' => "✏️| تعریف اکانت [SSH]"]],
+            [['text' => "🔙| بازگشت"]]
+        ];
+        $telegram->sendMessage2($user_id, $msgSendMessage, $keyboardHome);
+    }
 
     //-----------------------------------------------------
-   
+    public static function vireayesh_account_admin($user_id)
+    {
+        $telegram = new telegram();
+        $telegram->sendChatAction($user_id, 'typing');
+        //---------------------
+//        $sqldelete = "DELETE  FROM tbl_admin WHERE col_recive_data_ssh = '0'";
+//        $stmtDelete = $telegram->db->prepare($sqldelete);
+//        $stmtDelete->execute();
+        //----------------------
+        $sql = "UPDATE tbl_user SET step_user='vireayesh_account_admin' , role='admin' WHERE user_id='$user_id'";
+        $stmt = $telegram->db->prepare($sql);
+        $stmt->execute();
+        //----------------------
+        $telegram->sendChatAction($user_id, 'typing');
+        $msgSendMessage = "یک گزینه را انتخاب کنید";
+        $keyboardHome = [
+            [['text' => "📝| ویرایش اکانت [V2RAY]"], ['text' => "✏️| ویرایش اکانت [SSH]"]],
+            [['text' => "🔙| بازگشت"]]
+        ];
+        $telegram->sendMessage2($user_id, $msgSendMessage, $keyboardHome);
+    }
 
     //-----------------------------------------------------
     public static function tarife_account_ssh($user_id)
@@ -53,7 +93,20 @@ class Admin
     }
 
 
-   
+    public static function tarife_account_v2ray($user_id)
+    {
+        $telegram = new telegram();
+        $telegram->sendChatAction($user_id, 'typing');
+        //--------------------------------------------------
+        //----------------------
+        $sql = "UPDATE tbl_user SET step_user='tarife_account_v2ray' , role='admin' WHERE user_id='$user_id'";
+        $stmt = $telegram->db->prepare($sql);
+        $stmt->execute();
+        //----------------------
+        $msg = "لینک ویتوری را ارسال کنید ";
+        $telegram->sendMessage($user_id, $msg);
+
+    }
 
     //-----------------------------------------------
     public static function ersalPayameKhoshamdid_admin($user_id)
@@ -525,7 +578,30 @@ class Admin
 
     }
 
+    public static function sendConfigFree($user_id)
+    {
+        $telegram = new telegram();
+        $telegram->sendChatAction($user_id, 'typing');
 
+        //------------------------
+        $sql = "UPDATE tbl_user SET step_user='SendConfigFree', role='admin'  WHERE user_id='$user_id'";
+        $stmt = $telegram->db->prepare($sql);
+        $stmt->execute();
+        //------------------------
+        //---------------------
+        $sqldelete = "DELETE  FROM tbl_config WHERE active_send = '0'";
+        $stmtDelete = $telegram->db->prepare($sqldelete);
+        $stmtDelete->execute();
+        //----------------------
+
+
+        $keyboard = [
+            [['text' => 'ارسال در کانال|📱', 'callback_data' => 'sendConfigToChanel'], ['text' => 'ارسال ربات |👨🏻‍💻 ', 'callback_data' => 'sendConfigToBot']]
+        ];
+        $txtSend = '<b>' . "یک گزینه را انتخاب کنید: " . '</b>' . '.' . "\n";
+        $telegram->sendMessage($user_id, $txtSend, $keyboard);
+
+    }
 
     public static function send_config_free_to_chanel($user_id, $text_message)
     {
@@ -872,3 +948,4 @@ class Admin
 
 
 ?>
+
