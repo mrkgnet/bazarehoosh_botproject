@@ -157,6 +157,3 @@ elseif ($user_id == adminChatIDMain) {
     }
 } 
 require_once("callback-data-bot.php");
-
-
-//----------------------------
